@@ -148,7 +148,7 @@ async function checkWorktreeAutoOpen(stateManager: StateManager): Promise<void> 
 }
 
 /**
- * Performs cleanup when Cline is deactivated that is common to all platforms.
+ * Performs cleanup when Dappit AI is deactivated that is common to all platforms.
  */
 export async function tearDown(): Promise<void> {
 	AgentConfigLoader.getInstance()?.dispose()

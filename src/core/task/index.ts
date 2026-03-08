@@ -683,7 +683,7 @@ export class Task {
 			await this.postStateToWebview()
 		}
 
-		// Notification hook marks that Cline is waiting for user input.
+		// Notification hook marks that Dappit AI is waiting for user input.
 		await this.runNotificationHook({
 			event: "user_attention",
 			source: type,
@@ -2297,14 +2297,14 @@ export class Task {
 			if (autoApprovalSettings.enableNotifications) {
 				showSystemNotification({
 					subtitle: "Error",
-					message: "Cline is having trouble. Would you like to continue the task?",
+					message: "Dappit AI is having trouble. Would you like to continue the task?",
 				})
 			}
 			const { response, text, images, files } = await this.ask(
 				"mistake_limit_reached",
 				this.api.getModel().id.includes("claude")
-					? `This may indicate a failure in Cline's thought process or inability to use a tool properly, which can be mitigated with some user guidance (e.g. "Try breaking down the task into smaller steps").`
-					: "Cline uses complex prompts and iterative task execution that may be challenging for less capable models. For best results, it's recommended to use Claude 4.5 Sonnet for its advanced agentic coding capabilities.",
+					? `This may indicate a failure in Dappit AI's thought process or inability to use a tool properly, which can be mitigated with some user guidance (e.g. "Try breaking down the task into smaller steps").`
+					: "Dappit AI uses complex prompts and iterative task execution that may be challenging for less capable models. For best results, it's recommended to use Claude 4.5 Sonnet for its advanced agentic coding capabilities.",
 			)
 			if (response === "messageResponse") {
 				// Display the user's message in the chat UI
