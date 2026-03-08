@@ -1,10 +1,6 @@
 {
 	"list": [
 		{
-			"value": "cline",
-			"label": "Cline"
-		},
-		{
 			"value": "openai-codex",
 			"label": "ChatGPT Subscription"
 		},

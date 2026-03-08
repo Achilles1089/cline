@@ -17,11 +17,10 @@ export function getConfiguredProviders(
 	const configured: ApiProvider[] = []
 
 	if (!apiConfiguration) {
-		return ["cline"] // Cline is always available
+		return [] // No default provider — user must configure one
 	}
 
-	// Cline - always available (uses account-based auth)
-	configured.push("cline")
+	// (Cline cloud provider removed — Dappit uses user-configured providers only)
 
 	// Anthropic - requires API key
 	if (apiConfiguration.apiKey) {
