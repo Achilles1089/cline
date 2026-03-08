@@ -14,7 +14,7 @@ import { Controller } from ".."
 export async function testOtelConnection(_controller: Controller, _: EmptyRequest): Promise<TestConnectionResult> {
 	try {
 		const providers = await telemetryService.getProviders()
-		const otelProvider = providers.find((p) => p.name === REMOTE_CONFIG_OTEL_PROVIDER_ID)
+		const otelProvider = (providers || []).find((p: any) => p.name === REMOTE_CONFIG_OTEL_PROVIDER_ID)
 
 		if (!otelProvider) {
 			return TestConnectionResult.create({

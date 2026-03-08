@@ -36,7 +36,11 @@ export class BannerService {
 		return BannerService.instance
 	}
 
-	public async onAuthUpdate(_userId: string | null): Promise<void> {
+	public static async onAuthUpdate(_userId: string | null): Promise<void> {
+		// No-op
+	}
+
+	public clearCache(): void {
 		// No-op
 	}
 
