@@ -125,59 +125,59 @@ export class TelemetryService {
 	private taskErrorCounts = new Map<string, number>()
 	public static readonly METRICS = {
 		TASK: {
-			TURNS_TOTAL: "cline.turns.total",
-			TURNS_PER_TASK: "cline.turns.per_task",
-			TOKENS_INPUT_TOTAL: "cline.tokens.input.total",
-			TOKENS_INPUT_PER_RESPONSE: "cline.tokens.input.per_response",
-			TOKENS_OUTPUT_TOTAL: "cline.tokens.output.total",
-			TOKENS_OUTPUT_PER_RESPONSE: "cline.tokens.output.per_response",
-			COST_TOTAL: "cline.cost.total",
-			COST_PER_EVENT: "cline.cost.per_event",
+			TURNS_TOTAL: "dappit.turns.total",
+			TURNS_PER_TASK: "dappit.turns.per_task",
+			TOKENS_INPUT_TOTAL: "dappit.tokens.input.total",
+			TOKENS_INPUT_PER_RESPONSE: "dappit.tokens.input.per_response",
+			TOKENS_OUTPUT_TOTAL: "dappit.tokens.output.total",
+			TOKENS_OUTPUT_PER_RESPONSE: "dappit.tokens.output.per_response",
+			COST_TOTAL: "dappit.cost.total",
+			COST_PER_EVENT: "dappit.cost.per_event",
 		},
 		CACHE: {
-			WRITE_TOTAL: "cline.cache.write.tokens.total",
-			WRITE_PER_EVENT: "cline.cache.write.tokens.per_event",
-			READ_TOTAL: "cline.cache.read.tokens.total",
-			READ_PER_EVENT: "cline.cache.read.tokens.per_event",
-			HITS_TOTAL: "cline.cache.hits.total",
+			WRITE_TOTAL: "dappit.cache.write.tokens.total",
+			WRITE_PER_EVENT: "dappit.cache.write.tokens.per_event",
+			READ_TOTAL: "dappit.cache.read.tokens.total",
+			READ_PER_EVENT: "dappit.cache.read.tokens.per_event",
+			HITS_TOTAL: "dappit.cache.hits.total",
 		},
 		TOOLS: {
-			CALLS_TOTAL: "cline.tool.calls.total",
-			CALLS_PER_TASK: "cline.tool.calls.per_task",
+			CALLS_TOTAL: "dappit.tool.calls.total",
+			CALLS_PER_TASK: "dappit.tool.calls.per_task",
 		},
 		ERRORS: {
-			TOTAL: "cline.errors.total",
-			PER_TASK: "cline.errors.per_task",
+			TOTAL: "dappit.errors.total",
+			PER_TASK: "dappit.errors.per_task",
 		},
 		API: {
-			TTFT_SECONDS: "cline.api.ttft.seconds",
-			DURATION_SECONDS: "cline.api.duration.seconds",
-			THROUGHPUT_TOKENS_PER_SECOND: "cline.api.throughput.tokens_per_second",
+			TTFT_SECONDS: "dappit.api.ttft.seconds",
+			DURATION_SECONDS: "dappit.api.duration.seconds",
+			THROUGHPUT_TOKENS_PER_SECOND: "dappit.api.throughput.tokens_per_second",
 		},
 		HOOKS: {
-			EXECUTIONS_TOTAL: "cline.hooks.executions.total",
-			DURATION_SECONDS: "cline.hooks.duration.seconds",
-			FAILURES_TOTAL: "cline.hooks.failures.total",
-			CANCELLATIONS_TOTAL: "cline.hooks.cancellations.total",
-			CONTEXT_MODIFICATIONS_TOTAL: "cline.hooks.context_modifications.total",
-			CACHE_ACCESSES_TOTAL: "cline.hooks.cache.accesses.total",
+			EXECUTIONS_TOTAL: "dappit.hooks.executions.total",
+			DURATION_SECONDS: "dappit.hooks.duration.seconds",
+			FAILURES_TOTAL: "dappit.hooks.failures.total",
+			CANCELLATIONS_TOTAL: "dappit.hooks.cancellations.total",
+			CONTEXT_MODIFICATIONS_TOTAL: "dappit.hooks.context_modifications.total",
+			CACHE_ACCESSES_TOTAL: "dappit.hooks.cache.accesses.total",
 		},
 		AI_OUTPUT: {
-			ACCEPTED_LINES_ADDED: "cline.ai_output.accepted.lines_added.total",
-			ACCEPTED_LINES_DELETED: "cline.ai_output.accepted.lines_deleted.total",
-			ACCEPTED_LINES_CHANGED: "cline.ai_output.accepted.lines_changed.total",
-			ACCEPTED_FILES_CREATED: "cline.ai_output.accepted.files_created.total",
-			ACCEPTED_FILES_DELETED: "cline.ai_output.accepted.files_deleted.total",
-			ACCEPTED_FILES_MOVED: "cline.ai_output.accepted.files_moved.total",
-			REJECTED_LINES_ADDED: "cline.ai_output.rejected.lines_added.total",
-			REJECTED_LINES_DELETED: "cline.ai_output.rejected.lines_deleted.total",
-			REJECTED_LINES_CHANGED: "cline.ai_output.rejected.lines_changed.total",
-			REJECTED_FILES_CREATED: "cline.ai_output.rejected.files_created.total",
-			REJECTED_FILES_DELETED: "cline.ai_output.rejected.files_deleted.total",
-			REJECTED_FILES_MOVED: "cline.ai_output.rejected.files_moved.total",
+			ACCEPTED_LINES_ADDED: "dappit.ai_output.accepted.lines_added.total",
+			ACCEPTED_LINES_DELETED: "dappit.ai_output.accepted.lines_deleted.total",
+			ACCEPTED_LINES_CHANGED: "dappit.ai_output.accepted.lines_changed.total",
+			ACCEPTED_FILES_CREATED: "dappit.ai_output.accepted.files_created.total",
+			ACCEPTED_FILES_DELETED: "dappit.ai_output.accepted.files_deleted.total",
+			ACCEPTED_FILES_MOVED: "dappit.ai_output.accepted.files_moved.total",
+			REJECTED_LINES_ADDED: "dappit.ai_output.rejected.lines_added.total",
+			REJECTED_LINES_DELETED: "dappit.ai_output.rejected.lines_deleted.total",
+			REJECTED_LINES_CHANGED: "dappit.ai_output.rejected.lines_changed.total",
+			REJECTED_FILES_CREATED: "dappit.ai_output.rejected.files_created.total",
+			REJECTED_FILES_DELETED: "dappit.ai_output.rejected.files_deleted.total",
+			REJECTED_FILES_MOVED: "dappit.ai_output.rejected.files_moved.total",
 		},
 		GRPC: {
-			RESPONSE_SIZE_BYTES: "cline.grpc.response.size_bytes",
+			RESPONSE_SIZE_BYTES: "dappit.grpc.response.size_bytes",
 		},
 	}
 	// Event constants for tracking user interactions and system events
@@ -1737,11 +1737,11 @@ export class TelemetryService {
 		})
 
 		const isMultiRoot = rootCount > 1
-		this.recordGauge("cline.workspace.active_roots", rootCount, {
+		this.recordGauge("dappit.workspace.active_roots", rootCount, {
 			is_multi_root: isMultiRoot,
 		})
 		// Retire the previous series to avoid leaking gauge entries when the flag flips.
-		this.recordGauge("cline.workspace.active_roots", null, {
+		this.recordGauge("dappit.workspace.active_roots", null, {
 			is_multi_root: !isMultiRoot,
 		})
 	}

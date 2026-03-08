@@ -112,17 +112,17 @@
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "claude-dev-ActivityBar",
+					"id": "dappit-agent-ActivityBar",
 					"title": "Dappit AI",
 					"icon": "assets/icons/icon.svg"
 				}
 			]
 		},
 		"views": {
-			"claude-dev-ActivityBar": [
+			"dappit-agent-ActivityBar": [
 				{
 					"type": "webview",
-					"id": "claude-dev.SidebarProvider",
+					"id": "dappit-agent.SidebarProvider",
 					"name": "",
 					"icon": "assets/icons/icon.svg"
 				}
@@ -130,110 +130,110 @@
 		},
 		"commands": [
 			{
-				"command": "cline.plusButtonClicked",
+				"command": "dappit.plusButtonClicked",
 				"title": "New Task",
 				"icon": "$(add)"
 			},
 			{
-				"command": "cline.mcpButtonClicked",
+				"command": "dappit.mcpButtonClicked",
 				"title": "MCP Servers",
 				"icon": "$(server)"
 			},
 			{
-				"command": "cline.historyButtonClicked",
+				"command": "dappit.historyButtonClicked",
 				"title": "History",
 				"icon": "$(history)"
 			},
 			{
-				"command": "cline.settingsButtonClicked",
+				"command": "dappit.settingsButtonClicked",
 				"title": "Settings",
 				"icon": "$(settings-gear)"
 			},
 			{
-				"command": "cline.dev.createTestTasks",
+				"command": "dappit.dev.createTestTasks",
 				"title": "Create Test Tasks",
 				"category": "Dappit AI",
-				"when": "cline.isDevMode"
+				"when": "dappit.isDevMode"
 			},
 			{
-				"command": "cline.dev.expireMcpOAuthTokens",
+				"command": "dappit.dev.expireMcpOAuthTokens",
 				"title": "Expire MCP OAuth Tokens (for testing)",
 				"category": "Dappit AI",
-				"when": "cline.isDevMode"
+				"when": "dappit.isDevMode"
 			},
 			{
-				"command": "cline.addToChat",
+				"command": "dappit.addToChat",
 				"title": "Add to Dappit AI",
 				"category": "Dappit AI"
 			},
 			{
-				"command": "cline.addTerminalOutputToChat",
+				"command": "dappit.addTerminalOutputToChat",
 				"title": "Add to Dappit AI",
 				"category": "Dappit AI"
 			},
 			{
-				"command": "cline.focusChatInput",
+				"command": "dappit.focusChatInput",
 				"title": "Jump to Chat Input",
 				"category": "Dappit AI"
 			},
 			{
-				"command": "cline.generateGitCommitMessage",
+				"command": "dappit.generateGitCommitMessage",
 				"title": "Generate Commit Message with Dappit AI",
 				"category": "Dappit AI",
 				"icon": "$(dappit-icon)"
 			},
 			{
-				"command": "cline.abortGitCommitMessage",
+				"command": "dappit.abortGitCommitMessage",
 				"title": "Generate Commit Message with Dappit AI - Stop",
 				"category": "Dappit AI",
 				"icon": "$(debug-stop)"
 			},
 			{
-				"command": "cline.explainCode",
+				"command": "dappit.explainCode",
 				"title": "Explain with Dappit AI",
 				"category": "Dappit AI"
 			},
 			{
-				"command": "cline.improveCode",
+				"command": "dappit.improveCode",
 				"title": "Improve with Dappit AI",
 				"category": "Dappit AI"
 			},
 			{
-				"command": "cline.jupyterGenerateCell",
+				"command": "dappit.jupyterGenerateCell",
 				"title": "Generate Jupyter Cell with Dappit AI",
 				"category": "Dappit AI",
 				"icon": "$(sparkle)"
 			},
 			{
-				"command": "cline.jupyterExplainCell",
+				"command": "dappit.jupyterExplainCell",
 				"title": "Explain Jupyter Cell with Dappit AI",
 				"category": "Dappit AI",
 				"icon": "$(question)"
 			},
 			{
-				"command": "cline.jupyterImproveCell",
+				"command": "dappit.jupyterImproveCell",
 				"title": "Improve Jupyter Cell with Dappit AI",
 				"category": "Dappit AI",
 				"icon": "$(lightbulb)"
 			},
 			{
-				"command": "cline.openWalkthrough",
+				"command": "dappit.openWalkthrough",
 				"title": "Open Walkthrough",
 				"category": "Dappit AI"
 			},
 			{
-				"command": "cline.reconstructTaskHistory",
+				"command": "dappit.reconstructTaskHistory",
 				"title": "Reconstruct Task History",
 				"category": "Dappit AI"
 			},
 			{
-				"command": "cline.reviewComment.reply",
+				"command": "dappit.reviewComment.reply",
 				"title": "Reply",
 				"category": "Dappit AI",
 				"enablement": "!commentIsEmpty"
 			},
 			{
-				"command": "cline.reviewComment.addToChat",
+				"command": "dappit.reviewComment.addToChat",
 				"title": "Add to Dappit AI Chat",
 				"category": "Dappit AI",
 				"icon": "$(link-external)"
@@ -243,10 +243,10 @@
 			{
 				"command": "editor.action.submitComment",
 				"key": "enter",
-				"when": "commentEditorFocused && commentController == cline-ai-review && !commentIsEmpty"
+				"when": "commentEditorFocused && commentController == dappit-ai-review && !commentIsEmpty"
 			},
 			{
-				"command": "cline.addToChat",
+				"command": "dappit.addToChat",
 				"key": "cmd+'",
 				"mac": "cmd+'",
 				"win": "ctrl+'",
@@ -254,11 +254,11 @@
 				"when": "editorHasSelection"
 			},
 			{
-				"command": "cline.generateGitCommitMessage",
+				"command": "dappit.generateGitCommitMessage",
 				"when": "config.git.enabled && scmProvider == git"
 			},
 			{
-				"command": "cline.focusChatInput",
+				"command": "dappit.focusChatInput",
 				"key": "cmd+'",
 				"mac": "cmd+'",
 				"win": "ctrl+'",
@@ -269,96 +269,96 @@
 		"menus": {
 			"view/title": [
 				{
-					"command": "cline.plusButtonClicked",
+					"command": "dappit.plusButtonClicked",
 					"group": "navigation@1",
-					"when": "view == claude-dev.SidebarProvider"
+					"when": "view == dappit-agent.SidebarProvider"
 				},
 				{
-					"command": "cline.mcpButtonClicked",
+					"command": "dappit.mcpButtonClicked",
 					"group": "navigation@2",
-					"when": "view == claude-dev.SidebarProvider"
+					"when": "view == dappit-agent.SidebarProvider"
 				},
 				{
-					"command": "cline.historyButtonClicked",
+					"command": "dappit.historyButtonClicked",
 					"group": "navigation@3",
-					"when": "view == claude-dev.SidebarProvider"
+					"when": "view == dappit-agent.SidebarProvider"
 				},
 				{
-					"command": "cline.settingsButtonClicked",
+					"command": "dappit.settingsButtonClicked",
 					"group": "navigation@6",
-					"when": "view == claude-dev.SidebarProvider"
+					"when": "view == dappit-agent.SidebarProvider"
 				}
 			],
 			"editor/context": [
 				{
-					"command": "cline.addToChat",
+					"command": "dappit.addToChat",
 					"group": "navigation",
 					"when": "editorHasSelection"
 				}
 			],
 			"terminal/context": [
 				{
-					"command": "cline.addTerminalOutputToChat",
+					"command": "dappit.addTerminalOutputToChat",
 					"group": "navigation"
 				}
 			],
 			"scm/title": [
 				{
-					"command": "cline.generateGitCommitMessage",
+					"command": "dappit.generateGitCommitMessage",
 					"group": "navigation",
 					"when": "config.git.enabled && scmProvider == git && !cline.isGeneratingCommit"
 				},
 				{
-					"command": "cline.abortGitCommitMessage",
+					"command": "dappit.abortGitCommitMessage",
 					"group": "navigation",
 					"when": "config.git.enabled && scmProvider == git && cline.isGeneratingCommit"
 				}
 			],
 			"notebook/toolbar": [
 				{
-					"command": "cline.jupyterGenerateCell",
+					"command": "dappit.jupyterGenerateCell",
 					"group": "navigation/add@1",
 					"when": "notebookType == 'jupyter-notebook'"
 				}
 			],
 			"notebook/cell/title": [
 				{
-					"command": "cline.jupyterExplainCell",
+					"command": "dappit.jupyterExplainCell",
 					"group": "inline@1",
 					"when": "notebookType == 'jupyter-notebook'"
 				},
 				{
-					"command": "cline.jupyterImproveCell",
+					"command": "dappit.jupyterImproveCell",
 					"group": "inline@2",
 					"when": "notebookType == 'jupyter-notebook'"
 				}
 			],
 			"commandPalette": [
 				{
-					"command": "cline.generateGitCommitMessage",
+					"command": "dappit.generateGitCommitMessage",
 					"when": "config.git.enabled && !cline.isGeneratingCommit"
 				},
 				{
-					"command": "cline.abortGitCommitMessage",
+					"command": "dappit.abortGitCommitMessage",
 					"when": "config.git.enabled && cline.isGeneratingCommit"
 				},
 				{
-					"command": "cline.reviewComment.reply",
+					"command": "dappit.reviewComment.reply",
 					"when": "false"
 				}
 			],
 			"comments/commentThread/context": [
 				{
-					"command": "cline.reviewComment.reply",
+					"command": "dappit.reviewComment.reply",
 					"group": "inline",
-					"when": "commentController == cline-ai-review"
+					"when": "commentController == dappit-ai-review"
 				}
 			],
 			"comments/commentThread/title": [
 				{
-					"command": "cline.reviewComment.addToChat",
+					"command": "dappit.reviewComment.addToChat",
 					"group": "inline",
-					"when": "commentController == cline-ai-review"
+					"when": "commentController == dappit-ai-review"
 				}
 			]
 		},

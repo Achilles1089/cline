@@ -87,5 +87,5 @@ export async function sendStateUpdate(state: ExtensionState): Promise<void> {
 }
 
 function recordStateSizeTelemetry(sizeBytes: number): void {
-	telemetryService.captureGrpcResponseSize(sizeBytes, "cline.StateService", "subscribeToState")
+	telemetryService.captureGrpcResponseSize(sizeBytes, "dappit.StateService", "subscribeToState")
 }

@@ -1,13 +1,13 @@
 import { name, publisher, version } from "../package.json"
 import { HostProvider } from "./hosts/host-provider"
 
-const prefix = name === "claude-dev" ? "cline" : name
+const prefix = name === "dappit-agent" ? "dappit" : name
 
 /**
  * List of commands with the name of the extension they are registered under.
  * These should match the command IDs defined in package.json.
  * For Nightly build, the publish script has updated all the commands to use the extension name as prefix.
- * In production, all commands are registered under "cline" for consistency.
+ * In production, all commands are registered under "dappit" for consistency.
  */
 const ClineCommands = {
 	PlusButton: prefix + ".plusButtonClicked",
