@@ -59,7 +59,7 @@ export function resolveCommandTimeoutSeconds(
 export class ExecuteCommandToolHandler implements IFullyManagedTool {
 	readonly name = ClineDefaultTool.BASH
 
-	constructor(_validator: ToolValidator) {}
+	constructor(_validator: ToolValidator) { }
 
 	getDescription(block: ToolUse): string {
 		return `[${block.name} for '${block.params.command}']`
@@ -82,7 +82,7 @@ export class ExecuteCommandToolHandler implements IFullyManagedTool {
 		}
 		await uiHelpers
 			.ask("command" as ClineAsk, uiHelpers.removeClosingTag(block, "command", command), block.partial)
-			.catch(() => {})
+			.catch(() => { })
 	}
 
 	async execute(config: TaskConfig, block: ToolUse): Promise<ToolResponse> {
@@ -241,7 +241,7 @@ export class ExecuteCommandToolHandler implements IFullyManagedTool {
 		} else {
 			// Manual approval flow
 			showNotificationForApproval(
-				`Cline wants to execute a command: ${actualCommand}`,
+				`Dappit AI wants to execute a command: ${actualCommand}`,
 				config.autoApprovalSettings.enableNotifications,
 			)
 

@@ -16,7 +16,7 @@ import { ToolResultUtils } from "../utils/ToolResultUtils"
 export class ListCodeDefinitionNamesToolHandler implements IFullyManagedTool {
 	readonly name = ClineDefaultTool.LIST_CODE_DEF
 
-	constructor(private validator: ToolValidator) {}
+	constructor(private validator: ToolValidator) { }
 
 	getDescription(block: ToolUse): string {
 		return `[${block.name} for '${block.params.path}']`
@@ -46,7 +46,7 @@ export class ListCodeDefinitionNamesToolHandler implements IFullyManagedTool {
 			await uiHelpers.say("tool", partialMessage, undefined, undefined, block.partial)
 		} else {
 			await uiHelpers.removeLastPartialMessageIfExistsWithType("say", "tool")
-			await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => {})
+			await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => { })
 		}
 	}
 
@@ -107,7 +107,7 @@ export class ListCodeDefinitionNamesToolHandler implements IFullyManagedTool {
 			)
 		} else {
 			// Manual approval flow
-			const notificationMessage = `Cline wants to analyze code definitions in ${getWorkspaceBasename(absolutePath, "ListCodeDefinitionNamesToolHandler.notification")}`
+			const notificationMessage = `Dappit AI wants to analyze code definitions in ${getWorkspaceBasename(absolutePath, "ListCodeDefinitionNamesToolHandler.notification")}`
 
 			// Show notification
 			showNotificationForApproval(notificationMessage, config.autoApprovalSettings.enableNotifications)

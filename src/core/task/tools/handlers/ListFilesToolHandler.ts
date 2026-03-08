@@ -17,7 +17,7 @@ import { ToolResultUtils } from "../utils/ToolResultUtils"
 export class ListFilesToolHandler implements IFullyManagedTool {
 	readonly name = ClineDefaultTool.LIST_FILES
 
-	constructor(private validator: ToolValidator) {}
+	constructor(private validator: ToolValidator) { }
 
 	getDescription(block: ToolUse): string {
 		return `[${block.name} for '${block.params.path}']`
@@ -50,7 +50,7 @@ export class ListFilesToolHandler implements IFullyManagedTool {
 			await uiHelpers.say("tool", partialMessage, undefined, undefined, block.partial)
 		} else {
 			await uiHelpers.removeLastPartialMessageIfExistsWithType("say", "tool")
-			await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => {})
+			await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => { })
 		}
 	}
 
@@ -133,7 +133,7 @@ export class ListFilesToolHandler implements IFullyManagedTool {
 			)
 		} else {
 			// Manual approval flow
-			const notificationMessage = `Cline wants to view directory ${getWorkspaceBasename(absolutePath, "ListFilesToolHandler.notification")}/`
+			const notificationMessage = `Dappit AI wants to view directory ${getWorkspaceBasename(absolutePath, "ListFilesToolHandler.notification")}/`
 
 			// Show notification
 			showNotificationForApproval(notificationMessage, config.autoApprovalSettings.enableNotifications)

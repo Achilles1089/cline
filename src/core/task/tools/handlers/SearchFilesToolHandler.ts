@@ -21,12 +21,11 @@ import { ToolResultUtils } from "../utils/ToolResultUtils"
 export class SearchFilesToolHandler implements IFullyManagedTool {
 	readonly name = ClineDefaultTool.SEARCH
 
-	constructor(private validator: ToolValidator) {}
+	constructor(private validator: ToolValidator) { }
 
 	getDescription(block: ToolUse): string {
-		return `[${block.name} for '${block.params.regex}'${
-			block.params.file_pattern ? ` in '${block.params.file_pattern}'` : ""
-		}]`
+		return `[${block.name} for '${block.params.regex}'${block.params.file_pattern ? ` in '${block.params.file_pattern}'` : ""
+			}]`
 	}
 
 	/**
@@ -198,7 +197,7 @@ export class SearchFilesToolHandler implements IFullyManagedTool {
 			await uiHelpers.say("tool", partialMessage, undefined, undefined, block.partial)
 		} else {
 			await uiHelpers.removeLastPartialMessageIfExistsWithType("say", "tool")
-			await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => {})
+			await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => { })
 		}
 	}
 
@@ -327,7 +326,7 @@ export class SearchFilesToolHandler implements IFullyManagedTool {
 			)
 		} else {
 			// Manual approval flow
-			const notificationMessage = `Cline wants to search files for ${regex}`
+			const notificationMessage = `Dappit AI wants to search files for ${regex}`
 
 			// Show notification
 			showNotificationForApproval(notificationMessage, config.autoApprovalSettings.enableNotifications)

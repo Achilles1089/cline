@@ -13,7 +13,7 @@ import type { StronglyTypedUIHelpers } from "../types/UIHelpers"
 export class CondenseHandler implements IToolHandler, IPartialBlockHandler {
 	readonly name = ClineDefaultTool.CONDENSE
 
-	constructor() {}
+	constructor() { }
 
 	getDescription(block: ToolUse): string {
 		return `[${block.name}]`
@@ -33,8 +33,8 @@ export class CondenseHandler implements IToolHandler, IPartialBlockHandler {
 		// Show notification if enabled
 		if (config.autoApprovalSettings.enableNotifications) {
 			showSystemNotification({
-				subtitle: "Cline wants to condense the conversation...",
-				message: `Cline is suggesting to condense your conversation with: ${context}`,
+				subtitle: "Dappit AI wants to condense the conversation...",
+				message: `Dappit AI is suggesting to condense your conversation with: ${context}`,
 			})
 		}
 
@@ -83,6 +83,6 @@ export class CondenseHandler implements IToolHandler, IPartialBlockHandler {
 		const cleanedContext = uiHelpers.removeClosingTag(block, "context", context)
 
 		await uiHelpers.removeLastPartialMessageIfExistsWithType("say", "condense")
-		await uiHelpers.ask("condense" as ClineAsk, cleanedContext, block.partial).catch(() => {})
+		await uiHelpers.ask("condense" as ClineAsk, cleanedContext, block.partial).catch(() => { })
 	}
 }

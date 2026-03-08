@@ -10,7 +10,7 @@ import type { StronglyTypedUIHelpers } from "../types/UIHelpers"
 
 export class NewTaskHandler implements IToolHandler, IPartialBlockHandler {
 	readonly name = ClineDefaultTool.NEW_TASK
-	constructor() {}
+	constructor() { }
 
 	getDescription(block: ToolUse): string {
 		return `[${block.name} for creating a new task]`
@@ -21,7 +21,7 @@ export class NewTaskHandler implements IToolHandler, IPartialBlockHandler {
 	 */
 	async handlePartialBlock(block: ToolUse, uiHelpers: StronglyTypedUIHelpers): Promise<void> {
 		const context = uiHelpers.removeClosingTag(block, "context", block.params.context)
-		await uiHelpers.ask(this.name, context, true).catch(() => {})
+		await uiHelpers.ask(this.name, context, true).catch(() => { })
 	}
 
 	async execute(config: TaskConfig, block: ToolUse): Promise<ToolResponse> {
@@ -38,8 +38,8 @@ export class NewTaskHandler implements IToolHandler, IPartialBlockHandler {
 		// Show notification if enabled
 		if (config.autoApprovalSettings.enableNotifications) {
 			showSystemNotification({
-				subtitle: "Cline wants to start a new task...",
-				message: `Cline is suggesting to start a new task with: ${context}`,
+				subtitle: "Dappit AI wants to start a new task...",
+				message: `Dappit AI is suggesting to start a new task with: ${context}`,
 			})
 		}
 

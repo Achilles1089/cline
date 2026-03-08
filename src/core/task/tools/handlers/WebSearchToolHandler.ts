@@ -39,7 +39,7 @@ export class WebSearchToolHandler implements IFullyManagedTool {
 		// For partial blocks, we'll let the ToolExecutor handle auto-approval logic
 		// Just stream the UI update for now
 		await uiHelpers.removeLastPartialMessageIfExistsWithType("say", "tool")
-		await uiHelpers.ask("tool" as ClineAsk, partialMessage, block.partial).catch(() => {})
+		await uiHelpers.ask("tool" as ClineAsk, partialMessage, block.partial).catch(() => { })
 	}
 
 	async execute(config: TaskConfig, block: ToolUse): Promise<ToolResponse> {
@@ -103,7 +103,7 @@ export class WebSearchToolHandler implements IFullyManagedTool {
 			} else {
 				// Manual approval flow
 				showNotificationForApproval(
-					`Cline wants to search for: ${query}`,
+					`Dappit AI wants to search for: ${query}`,
 					config.autoApprovalSettings.enableNotifications,
 				)
 				await config.callbacks.removeLastPartialMessageIfExistsWithType("say", "tool")

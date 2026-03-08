@@ -26,7 +26,7 @@ import { ToolResultUtils } from "../utils/ToolResultUtils"
 export class WriteToFileToolHandler implements IFullyManagedTool {
 	readonly name = ClineDefaultTool.FILE_NEW // This handler supports write_to_file, replace_in_file, and new_rule
 
-	constructor(private validator: ToolValidator) {}
+	constructor(private validator: ToolValidator) { }
 
 	getDescription(block: ToolUse): string {
 		return `[${block.name} for '${block.params.path || block.params.absolutePath}']`
@@ -75,7 +75,7 @@ export class WriteToFileToolHandler implements IFullyManagedTool {
 				await uiHelpers.say("tool", partialMessage, undefined, undefined, block.partial)
 			} else {
 				await uiHelpers.removeLastPartialMessageIfExistsWithType("say", "tool")
-				await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => {})
+				await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => { })
 			}
 
 			// CRITICAL: Open editor and stream content in real-time (from original code)
@@ -134,10 +134,9 @@ export class WriteToFileToolHandler implements IFullyManagedTool {
 
 			await config.callbacks.say(
 				"error",
-				`Cline tried to use write_to_file for '${relPath}' without value for required parameter 'content'. ${
-					config.taskState.consecutiveMistakeCount >= 2
-						? "This has happened multiple times — Cline will try a different approach."
-						: "Retrying..."
+				`Cline tried to use write_to_file for '${relPath}' without value for required parameter 'content'. ${config.taskState.consecutiveMistakeCount >= 2
+					? "This has happened multiple times — Cline will try a different approach."
+					: "Retrying..."
 				}`,
 			)
 			return formatResponse.toolError(errorMessage)
@@ -176,7 +175,7 @@ export class WriteToFileToolHandler implements IFullyManagedTool {
 			if (!config.services.diffViewProvider.isEditing) {
 				// show gui message before showing edit animation
 				const partialMessage = JSON.stringify(sharedMessageProps)
-				await config.callbacks.ask("tool", partialMessage, true).catch(() => {}) // sending true for partial even though it's not a partial, this shows the edit row before the content is streamed into the editor
+				await config.callbacks.ask("tool", partialMessage, true).catch(() => { }) // sending true for partial even though it's not a partial, this shows the edit row before the content is streamed into the editor
 				await config.services.diffViewProvider.open(absolutePath, { displayPath: relPath })
 			}
 			await config.services.diffViewProvider.update(newContent, true)
@@ -229,7 +228,7 @@ export class WriteToFileToolHandler implements IFullyManagedTool {
 				await setTimeoutPromise(3_500)
 			} else {
 				// Manual approval flow with detailed feedback handling
-				const notificationMessage = `Cline wants to ${fileExists ? "edit" : "create"} ${getWorkspaceBasename(relPath, "WriteToFile.notification")}`
+				const notificationMessage = `Dappit AI wants to ${fileExists ? "edit" : "create"} ${getWorkspaceBasename(relPath, "WriteToFile.notification")}`
 
 				// Show notification
 				showNotificationForApproval(notificationMessage, config.autoApprovalSettings.enableNotifications)
@@ -526,7 +525,7 @@ export class WriteToFileToolHandler implements IFullyManagedTool {
 				// Push tool result with detailed error using existing utilities
 				const errorResponse = formatResponse.toolError(
 					`${(error as Error)?.message}\n\n` +
-						formatResponse.diffError(relPath, config.services.diffViewProvider.getOriginalContentForLLM()),
+					formatResponse.diffError(relPath, config.services.diffViewProvider.getOriginalContentForLLM()),
 				)
 				ToolResultUtils.pushToolResult(
 					errorResponse,

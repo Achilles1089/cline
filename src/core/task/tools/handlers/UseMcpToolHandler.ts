@@ -39,7 +39,7 @@ export class UseMcpToolHandler implements IFullyManagedTool {
 			await uiHelpers.say("use_mcp_server" as any, partialMessage, undefined, undefined, block.partial)
 		} else {
 			await uiHelpers.removeLastPartialMessageIfExistsWithType("say", "use_mcp_server")
-			await uiHelpers.ask("use_mcp_server" as ClineAsk, partialMessage, block.partial).catch(() => {})
+			await uiHelpers.ask("use_mcp_server" as ClineAsk, partialMessage, block.partial).catch(() => { })
 		}
 	}
 
@@ -108,7 +108,7 @@ export class UseMcpToolHandler implements IFullyManagedTool {
 			)
 		} else {
 			// Manual approval flow
-			const notificationMessage = `Cline wants to use ${tool_name || "unknown tool"} on ${server_name || "unknown server"}`
+			const notificationMessage = `Dappit AI wants to use ${tool_name || "unknown tool"} on ${server_name || "unknown server"}`
 
 			// Show notification
 			showNotificationForApproval(notificationMessage, config.autoApprovalSettings.enableNotifications)
@@ -181,19 +181,19 @@ export class UseMcpToolHandler implements IFullyManagedTool {
 
 			let toolResultText =
 				(toolResult?.isError ? "Error:\n" : "") +
-					toolResult?.content
-						.map((item: any) => {
-							if (item.type === "text") {
-								return item.text
-							}
-							if (item.type === "resource") {
-								const { blob: _blob, ...rest } = item.resource
-								return JSON.stringify(rest, null, 2)
-							}
-							return ""
-						})
-						.filter(Boolean)
-						.join("\n\n") || "(No response)"
+				toolResult?.content
+					.map((item: any) => {
+						if (item.type === "text") {
+							return item.text
+						}
+						if (item.type === "resource") {
+							const { blob: _blob, ...rest } = item.resource
+							return JSON.stringify(rest, null, 2)
+						}
+						return ""
+					})
+					.filter(Boolean)
+					.join("\n\n") || "(No response)"
 
 			// webview extracts images from the text response to display in the UI
 			const toolResultToDisplay = toolResultText + toolResultImages?.map((image: any) => `\n\n${image}`).join("")

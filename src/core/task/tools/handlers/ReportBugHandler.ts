@@ -16,7 +16,7 @@ import type { StronglyTypedUIHelpers } from "../types/UIHelpers"
 export class ReportBugHandler implements IToolHandler, IPartialBlockHandler {
 	readonly name = ClineDefaultTool.REPORT_BUG
 
-	constructor() {}
+	constructor() { }
 
 	getDescription(block: ToolUse): string {
 		return `[${block.name}]`
@@ -31,7 +31,7 @@ export class ReportBugHandler implements IToolHandler, IPartialBlockHandler {
 			additional_context: uiHelpers.removeClosingTag(block, "additional_context", block.params.additional_context),
 		})
 
-		await uiHelpers.ask(this.name, partialMessage, block.partial).catch(() => {})
+		await uiHelpers.ask(this.name, partialMessage, block.partial).catch(() => { })
 	}
 
 	async execute(config: TaskConfig, block: ToolUse): Promise<ToolResponse> {
@@ -68,8 +68,8 @@ export class ReportBugHandler implements IToolHandler, IPartialBlockHandler {
 		// Show notification if enabled
 		if (config.autoApprovalSettings.enableNotifications) {
 			showSystemNotification({
-				subtitle: "Cline wants to create a github issue...",
-				message: `Cline is suggesting to create a github issue with the title: ${title}`,
+				subtitle: "Dappit AI wants to create a github issue...",
+				message: `Dappit AI is suggesting to create a github issue with the title: ${title}`,
 			})
 		}
 

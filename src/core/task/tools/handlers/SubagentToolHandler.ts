@@ -58,13 +58,13 @@ export class UseSubagentsToolHandler implements IFullyManagedTool {
 		const configuredSubagentName = resolveConfiguredSubagentName(block.name)
 		const prompts = configuredSubagentName
 			? [
-					uiHelpers
-						.removeClosingTag(block, "prompt", block.params.prompt?.trim() || block.params.prompt_1?.trim())
-						?.trim(),
-				].filter((prompt): prompt is string => !!prompt)
+				uiHelpers
+					.removeClosingTag(block, "prompt", block.params.prompt?.trim() || block.params.prompt_1?.trim())
+					?.trim(),
+			].filter((prompt): prompt is string => !!prompt)
 			: PROMPT_KEYS.map((key) => uiHelpers.removeClosingTag(block, key, block.params[key]?.trim()))
-					.map((prompt) => prompt?.trim())
-					.filter((prompt): prompt is string => !!prompt)
+				.map((prompt) => prompt?.trim())
+				.filter((prompt): prompt is string => !!prompt)
 
 		if (prompts.length === 0) {
 			return
@@ -79,7 +79,7 @@ export class UseSubagentsToolHandler implements IFullyManagedTool {
 			await uiHelpers.say("use_subagents", partialMessage, undefined, undefined, block.partial)
 		} else {
 			await uiHelpers.removeLastPartialMessageIfExistsWithType("say", "use_subagents")
-			await uiHelpers.ask("use_subagents", partialMessage, block.partial).catch(() => {})
+			await uiHelpers.ask("use_subagents", partialMessage, block.partial).catch(() => { })
 		}
 	}
 
@@ -128,8 +128,8 @@ export class UseSubagentsToolHandler implements IFullyManagedTool {
 		} else {
 			showNotificationForApproval(
 				prompts.length === 1
-					? `Cline wants to use ${configuredSubagentName ? `the '${configuredSubagentName}' subagent` : "a subagent"}`
-					: `Cline wants to use ${prompts.length} subagents`,
+					? `Dappit AI wants to use ${configuredSubagentName ? `the '${configuredSubagentName}' subagent` : "a subagent"}`
+					: `Dappit AI wants to use ${prompts.length} subagents`,
 				config.autoApprovalSettings.enableNotifications,
 			)
 			const didApprove = await ToolResultUtils.askApprovalAndPushFeedback("use_subagents", approvalBody, config)

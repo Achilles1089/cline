@@ -47,7 +47,7 @@ export class ApplyPatchHandler implements IFullyManagedTool {
 	private pathResolver?: PathResolver
 	private providerOps?: FileProviderOperations
 
-	constructor(private validator: ToolValidator) {}
+	constructor(private validator: ToolValidator) { }
 
 	private initializeHelpers(config: TaskConfig): void {
 		if (!this.pathResolver || this.config !== config) {
@@ -78,7 +78,7 @@ export class ApplyPatchHandler implements IFullyManagedTool {
 			this.initializeHelpers(config)
 
 			// Preview the first file being edited
-			await this.previewPatchStream(rawInput, uiHelpers).catch(() => {})
+			await this.previewPatchStream(rawInput, uiHelpers).catch(() => { })
 		} catch {
 			// Wait for more data if parsing fails
 		}
@@ -162,7 +162,7 @@ export class ApplyPatchHandler implements IFullyManagedTool {
 				}),
 				true,
 			)
-			.catch(() => {}) // sending true for partial even though it's not a partial, this shows the edit row before the content is streamed into the editor
+			.catch(() => { }) // sending true for partial even though it's not a partial, this shows the edit row before the content is streamed into the editor
 
 		const stream: { content: string | undefined } = { content: undefined }
 
@@ -723,10 +723,10 @@ export class ApplyPatchHandler implements IFullyManagedTool {
 		// Determine file-level operation counts from the change type
 		const fileOps = change
 			? {
-					filesCreated: change.type === PatchActionType.ADD ? 1 : 0,
-					filesDeleted: change.type === PatchActionType.DELETE ? 1 : 0,
-					filesMoved: change.type === PatchActionType.UPDATE && change.movePath ? 1 : 0,
-				}
+				filesCreated: change.type === PatchActionType.ADD ? 1 : 0,
+				filesDeleted: change.type === PatchActionType.DELETE ? 1 : 0,
+				filesMoved: change.type === PatchActionType.UPDATE && change.movePath ? 1 : 0,
+			}
 			: { filesCreated: 0, filesDeleted: 0, filesMoved: 0 }
 
 		if (shouldAutoApprove) {
@@ -755,7 +755,7 @@ export class ApplyPatchHandler implements IFullyManagedTool {
 			return true
 		}
 
-		showNotificationForApproval(`Cline wants to edit '${message.path}'`, config.autoApprovalSettings.enableNotifications)
+		showNotificationForApproval(`Dappit AI wants to edit '${message.path}'`, config.autoApprovalSettings.enableNotifications)
 
 		await config.callbacks.removeLastPartialMessageIfExistsWithType("say", "tool")
 		const { response, text, images, files } = await config.callbacks.ask("tool", completeMessage, false)

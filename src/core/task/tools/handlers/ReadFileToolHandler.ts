@@ -18,7 +18,7 @@ import { ToolResultUtils } from "../utils/ToolResultUtils"
 export class ReadFileToolHandler implements IFullyManagedTool {
 	readonly name = ClineDefaultTool.FILE_READ
 
-	constructor(private validator: ToolValidator) {}
+	constructor(private validator: ToolValidator) { }
 
 	getDescription(block: ToolUse): string {
 		return `[${block.name} for '${block.params.path}']`
@@ -48,7 +48,7 @@ export class ReadFileToolHandler implements IFullyManagedTool {
 			await uiHelpers.say("tool", partialMessage, undefined, undefined, block.partial)
 		} else {
 			await uiHelpers.removeLastPartialMessageIfExistsWithType("say", "tool")
-			await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => {})
+			await uiHelpers.ask("tool", partialMessage, block.partial).catch(() => { })
 		}
 	}
 
@@ -124,7 +124,7 @@ export class ReadFileToolHandler implements IFullyManagedTool {
 			)
 		} else {
 			// Manual approval flow
-			const notificationMessage = `Cline wants to read ${getWorkspaceBasename(absolutePath, "ReadFileToolHandler.notification")}`
+			const notificationMessage = `Dappit AI wants to read ${getWorkspaceBasename(absolutePath, "ReadFileToolHandler.notification")}`
 
 			// Show notification
 			showNotificationForApproval(notificationMessage, config.autoApprovalSettings.enableNotifications)
