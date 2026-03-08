@@ -1,3 +1,11 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M6 3C3.79086 3 2 4.79086 2 7V16C2 18.2091 3.79086 20 6 20H18C20.2091 20 22 18.2091 22 16V7C22 4.79086 20.2091 3 18 3H6ZM8.5 9.5C9.71503 9.5 10.7 10.597 10.7 11.95V14.05C10.7 15.403 9.71503 16.5 8.5 16.5C7.28497 16.5 6.3 15.403 6.3 14.05V11.95C6.3 10.597 7.28497 9.5 8.5 9.5ZM15.5 9.5C16.715 9.5 17.7 10.597 17.7 11.95V14.05C17.7 15.403 16.715 16.5 15.5 16.5C14.285 16.5 13.3 15.403 13.3 14.05V11.95C13.3 10.597 14.285 9.5 15.5 9.5Z" fill="currentColor"/>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="m">
+      <rect width="24" height="24" fill="black"/>
+      <rect x="2" y="3" width="20" height="19" rx="6" fill="white"/>
+      <ellipse cx="8.5" cy="13" rx="2.2" ry="3.2" fill="black"/>
+      <ellipse cx="15.5" cy="13" rx="2.2" ry="3.2" fill="black"/>
+    </mask>
+  </defs>
+  <rect width="24" height="24" fill="currentColor" mask="url(#m)"/>
 </svg>
