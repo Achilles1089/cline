@@ -95,7 +95,7 @@ const editorFeatures: FeatureToggle[] = [
 	},
 	{
 		id: "cline-web-tools",
-		label: "Cline Web Tools",
+		label: "Dappit AI Web Tools",
 		description: "Access web browsing and search capabilities",
 		stateKey: "clineWebToolsEnabled",
 		settingKey: "clineWebToolsEnabled",
