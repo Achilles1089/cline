@@ -84,7 +84,7 @@ function getBuildArtifactPatterns(): string[] {
 		".sass-cache/",
 		".vs/",
 		".vscode/",
-		".clinerules/",
+		".dappitrules/",
 		"Pods/",
 		"__pycache__/",
 		"bin/",

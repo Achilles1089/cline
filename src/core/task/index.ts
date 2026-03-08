@@ -558,7 +558,7 @@ export class Task {
 			this.executeCommandTool.bind(this),
 			this.cancelBackgroundCommand.bind(this),
 			() => this.checkpointManager?.doesLatestTaskCompletionHaveNewChanges() ?? Promise.resolve(false),
-			this.FocusChainManager?.updateFCListFromToolResponse.bind(this.FocusChainManager) || (async () => {}),
+			this.FocusChainManager?.updateFCListFromToolResponse.bind(this.FocusChainManager) || (async () => { }),
 			this.switchToActModeCallback.bind(this),
 			this.cancelTask,
 			// Atomic hook state helpers for ToolExecutor
@@ -852,8 +852,7 @@ export class Task {
 	async sayAndCreateMissingParamError(toolName: ClineDefaultTool, paramName: string, relPath?: string) {
 		await this.say(
 			"error",
-			`Cline tried to use ${toolName}${
-				relPath ? ` for '${relPath.toPosix()}'` : ""
+			`Cline tried to use ${toolName}${relPath ? ` for '${relPath.toPosix()}'` : ""
 			} without value for required parameter '${paramName}'. Retrying...`,
 		)
 		return formatResponse.toolError(formatResponse.missingToolParameterError(paramName))
@@ -2274,7 +2273,7 @@ export class Task {
 		if (providerId && model.id) {
 			try {
 				await this.modelContextTracker.recordModelUsage(providerId, model.id, mode)
-			} catch {}
+			} catch { }
 		}
 
 		const modelInfo: ClineMessageModelInfo = {
@@ -2486,11 +2485,11 @@ export class Task {
 			)
 		}
 
-		// error handling if the user uses the /newrule command & their .clinerules is a file, for file read operations didnt work properly
+		// error handling if the user uses the /newrule command & their .dappitrules is a file, for file read operations didnt work properly
 		if (clinerulesError === true) {
 			await this.say(
 				"error",
-				"Issue with processing the /newrule command. Double check that, if '.clinerules' already exists, it's a directory and not a file. Otherwise there was an issue referencing this file/directory.",
+				"Issue with processing the /newrule command. Double check that, if '.dappitrules' already exists, it's a directory and not a file. Otherwise there was an issue referencing this file/directory.",
 			)
 		}
 
@@ -2637,10 +2636,9 @@ export class Task {
 							type: "text",
 							text:
 								assistantMessage +
-								`\n\n[${
-									cancelReason === "streaming_failed"
-										? "Response interrupted by API Error"
-										: "Response interrupted by user"
+								`\n\n[${cancelReason === "streaming_failed"
+									? "Response interrupted by API Error"
+									: "Response interrupted by user"
 								}]`,
 						},
 					],
@@ -3471,7 +3469,7 @@ export class Task {
 			await pWaitFor(() => busyTerminals.every((t) => !this.terminalManager.isProcessHot(t.id)), {
 				interval: 100,
 				timeout: 15_000,
-			}).catch(() => {})
+			}).catch(() => { })
 		}
 
 		this.taskState.didEditFile = false // reset, this lets us know when to wait for saved files to update terminals

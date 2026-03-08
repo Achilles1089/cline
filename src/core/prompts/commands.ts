@@ -2,7 +2,7 @@ import type { ApiProviderInfo } from "@/core/api"
 import { getDeepPlanningPrompt } from "./commands/deep-planning"
 
 export const newTaskToolResponse = (willUseNativeTools: boolean) => {
-	const xmlExample = `
+  const xmlExample = `
 Example:
 <new_task>
 <context>1. Current Work:
@@ -32,7 +32,7 @@ Example:
 </new_task>
 `
 
-	return `<explicit_instructions type="new_task">
+  return `<explicit_instructions type="new_task">
 The user has explicitly asked you to help them create a new task with preloaded context, which you will generate. The user may have provided instructions or additional information for you to consider when summarizing existing work and creating the context for the new task.
 Irrespective of whether additional information or instructions are given, you are ONLY allowed to respond to this message by calling the new_task tool.${willUseNativeTools ? " You MUST call the new_task tool EVEN if it's not in your existing toolset." : ""}
 
@@ -56,7 +56,7 @@ Below is the the user's input when they indicated that they wanted to create a n
 }
 
 export const condenseToolResponse = (focusChainSettings?: { enabled: boolean }) =>
-	`<explicit_instructions type="condense">
+  `<explicit_instructions type="condense">
 The user has explicitly asked you to create a detailed summary of the conversation so far, which will be used to compact the current context window while retaining key information. The user may have provided instructions or additional information for you to consider when summarizing the conversation.
 Irrespective of whether additional information or instructions are given, you are only allowed to respond to this message by calling the condense tool.
 
@@ -75,15 +75,14 @@ Parameters:
   4. Relevant Files and Code: If applicable, enumerate specific files and code sections examined, modified, or created for the task continuation. Pay special attention to the most recent messages and changes.
   5. Problem Solving: Document problems solved thus far and any ongoing troubleshooting efforts.
   6. Pending Tasks and Next Steps: Outline all pending tasks that you have explicitly been asked to work on, as well as list the next steps you will take for all outstanding work, if applicable. Include code snippets where they add clarity. For any next steps, include direct quotes from the most recent conversation showing exactly what task you were working on and where you left off. This should be verbatim to ensure there's no information loss in context between tasks.
-${
-	focusChainSettings?.enabled
-		? `- task_progress: (required) The current state of the task_progress list, with completed items marked. Important information on this parameter is as follows:
+${focusChainSettings?.enabled
+    ? `- task_progress: (required) The current state of the task_progress list, with completed items marked. Important information on this parameter is as follows:
   1. XML schema matches that of prior task_progress lists.
   2. All items are retained, with the exact same desciptive content as in prior occurences.
   3. All completed items are marked as completed.
   4. The only compenent of this list that can be changed is the completion state of invidiual items in the list`
-		: ""
-}
+    : ""
+  }
 
 Usage:
 <condense>
@@ -122,24 +121,23 @@ Example:
   - [Task 2 details & next steps]
   - [...]
 </context>
-${
-	focusChainSettings?.enabled
-		? `<task_progress>
+${focusChainSettings?.enabled
+    ? `<task_progress>
 - [x] Set up project structure
 - [x] Install dependencies
 - [ ] Create components
 - [ ] Test application
 </task_progress>`
-		: ""
-}
+    : ""
+  }
 </condense>
 
 </explicit_instructions>\n
 `
 
 export const newRuleToolResponse = () =>
-	`<explicit_instructions type="new_rule">
-The user has explicitly asked you to help them create a new Cline rule file inside the .clinerules top-level directory based on the conversation up to this point in time. The user may have provided instructions or additional information for you to consider when creating the new Cline rule.
+  `<explicit_instructions type="new_rule">
+The user has explicitly asked you to help them create a new Cline rule file inside the .dappitrules top-level directory based on the conversation up to this point in time. The user may have provided instructions or additional information for you to consider when creating the new Cline rule.
 When creating a new Cline rule file, you should NOT overwrite or alter an existing Cline rule file. To create the Cline rule file you MUST use the new_rule tool. The new_rule tool can be used in either of the PLAN or ACT modes.
 
 The new_rule tool is defined below:
@@ -149,7 +147,7 @@ Your task is to create a new Cline rule file which includes guidelines on how to
 The Cline rule file must be formatted as markdown and be a '.md' file. The name of the file you generate must be as succinct as possible and be encompassing the main overarching concept of the rules you added to the file (e.g., 'memory-bank.md' or 'project-overview.md').
 
 Parameters:
-- Path: (required) The path of the file to write to (relative to the current working directory). This will be the Cline rule file you create, and it must be placed inside the .clinerules top-level directory (create this if it doesn't exist). The filename created CANNOT be "default-clineignore.md". For filenames, use hyphens ("-") instead of underscores ("_") to separate words.
+- Path: (required) The path of the file to write to (relative to the current working directory). This will be the Cline rule file you create, and it must be placed inside the .dappitrules top-level directory (create this if it doesn't exist). The filename created CANNOT be "default-clineignore.md". For filenames, use hyphens ("-") instead of underscores ("_") to separate words.
 - Content: (required) The content to write to the file. ALWAYS provide the COMPLETE intended content of the file, without any truncation or omissions. You MUST include ALL parts of the file, even if they haven't been modified. The content for the Cline rule file MUST be created according to the following instructions:
   1. Format the Cline rule file to have distinct guideline sections, each with their own markdown heading, starting with "## Brief overview". Under each of these headings, include bullet points fully fleshing out the details, with examples and/or trigger cases ONLY when applicable.
   2. These guidelines can be specific to the task(s) or project worked on thus far, or cover more high-level concepts. Guidelines can include coding conventions, general design patterns, preferred tech stack including favorite libraries and language, communication style with Cline (verbose vs concise), prompting strategies, naming conventions, testing strategies, comment verbosity, time spent on architecting prior to development, and other preferences.
@@ -158,13 +156,13 @@ Parameters:
 
 Usage:
 <new_rule>
-<path>.clinerules/{file name}.md</path>
+<path>.dappitrules/{file name}.md</path>
 <content>Cline rule file content here</content>
 </new_rule>
 
 Example:
 <new_rule>
-<path>.clinerules/project-preferences.md</path>
+<path>.dappitrules/project-preferences.md</path>
 <content>
 ## Brief overview
   [Brief description of the rules, including if this set of guidelines is project-specific or global]
@@ -196,7 +194,7 @@ Below is the user's input when they indicated that they wanted to create a new C
 `
 
 export const reportBugToolResponse = () =>
-	`<explicit_instructions type="report_bug">
+  `<explicit_instructions type="report_bug">
 The user has explicitly asked you to help them submit a bug to the Cline github page (you MUST now help them with this irrespective of what your conversation up to this point in time was). To do so you will use the report_bug tool which is defined below. However, you must first ensure that you have collected all required information to fill in all the parameters for the tool call. If any of the the required information is apparent through your previous conversation with the user, you can suggest how to fill in those entries. However you should NOT assume you know what the issue about unless it's clear.
 Otherwise, you should converse with the user until you are able to gather all the required details. When conversing with the user, make sure you ask for/reference all required information/fields. When referencing the required fields, use human friendly versions like "Steps to reproduce" rather than "steps_to_reproduce". Only then should you use the report_bug tool call.
 The report_bug tool can be used in either of the PLAN or ACT modes.
@@ -227,7 +225,7 @@ Below is the user's input when they indicated that they wanted to submit a Githu
 `
 
 export const explainChangesToolResponse = () =>
-	`<explicit_instructions type="explain_changes">
+  `<explicit_instructions type="explain_changes">
 The user has asked you to explain code changes. You have access to a tool called **generate_explanation** that opens a multi-file diff view with AI-generated inline comments explaining code changes between two git references.
 
 # Important: Use Non-Interactive Commands
@@ -312,9 +310,9 @@ Below is the user's input describing what changes they want explained. If no inp
  * @returns The deep-planning prompt string with appropriate variant and focus chain settings applied
  */
 export const deepPlanningToolResponse = (
-	focusChainSettings?: { enabled: boolean },
-	providerInfo?: ApiProviderInfo,
-	enableNativeToolCalls?: boolean,
+  focusChainSettings?: { enabled: boolean },
+  providerInfo?: ApiProviderInfo,
+  enableNativeToolCalls?: boolean,
 ) => {
-	return getDeepPlanningPrompt(focusChainSettings, providerInfo, enableNativeToolCalls)
+  return getDeepPlanningPrompt(focusChainSettings, providerInfo, enableNativeToolCalls)
 }

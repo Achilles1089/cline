@@ -169,17 +169,17 @@ Otherwise, if you have not completed the task and do not need additional informa
 
 		const clineIgnoreParsed = clineIgnoreController
 			? sorted.map((filePath) => {
-					// path is relative to absolute path, not cwd
-					// validateAccess expects either path relative to cwd or absolute path
-					// otherwise, for validating against ignore patterns like "assets/icons", we would end up with just "icons", which would result in the path not being ignored.
-					const absoluteFilePath = path.resolve(absolutePath, filePath)
-					const isIgnored = !clineIgnoreController.validateAccess(absoluteFilePath)
-					if (isIgnored) {
-						return LOCK_TEXT_SYMBOL + " " + filePath
-					}
+				// path is relative to absolute path, not cwd
+				// validateAccess expects either path relative to cwd or absolute path
+				// otherwise, for validating against ignore patterns like "assets/icons", we would end up with just "icons", which would result in the path not being ignored.
+				const absoluteFilePath = path.resolve(absolutePath, filePath)
+				const isIgnored = !clineIgnoreController.validateAccess(absoluteFilePath)
+				if (isIgnored) {
+					return LOCK_TEXT_SYMBOL + " " + filePath
+				}
 
-					return filePath
-				})
+				return filePath
+			})
 			: sorted
 
 		if (didHitLimit) {
@@ -209,23 +209,20 @@ Otherwise, if you have not completed the task and do not need additional informa
 		responseText?: string,
 		hasPendingFileContextWarnings?: boolean,
 	): [string, string] => {
-		const taskResumptionMessage = `[TASK RESUMPTION] ${
-			mode === "plan"
+		const taskResumptionMessage = `[TASK RESUMPTION] ${mode === "plan"
 				? `This task was interrupted ${agoText}. The conversation may have been incomplete. Be aware that the project state may have changed since then. The current working directory is now '${cwd.toPosix()}'.\n\nNote: If you previously attempted a tool use that the user did not provide a result for, you should assume the tool use was not successful. However you are in PLAN MODE, so rather than continuing the task, you must respond to the user's message.`
 				: `This task was interrupted ${agoText}. It may or may not be complete, so please reassess the task context. Be aware that the project state may have changed since then. The current working directory is now '${cwd.toPosix()}'. If the task has not been completed, retry the last step before interruption and proceed with completing the task.\n\nNote: If you previously attempted a tool use that the user did not provide a result for, you should assume the tool use was not successful and assess whether you should retry. If the last tool was a browser_action, the browser has been closed and you must launch a new browser if needed.`
-		}${
-			wasRecent && !hasPendingFileContextWarnings
+			}${wasRecent && !hasPendingFileContextWarnings
 				? "\n\nIMPORTANT: If the last tool use was a replace_in_file or write_to_file that was interrupted, the file was reverted back to its original state before the interrupted edit, and you do NOT need to re-read the file as you already have its up-to-date contents."
 				: ""
-		}`
+			}`
 
-		const userResponseMessage = `${
-			responseText
+		const userResponseMessage = `${responseText
 				? `${mode === "plan" ? "New message to respond to with plan_mode_respond tool (be sure to provide your response in the <response> parameter)" : "New instructions for task continuation"}:\n<user_message>\n${responseText}\n</user_message>`
 				: mode === "plan"
 					? "(The user did not provide a new message. Consider asking them how they'd like you to proceed, or suggest to them to switch to Act mode to continue with the task.)"
 					: ""
-		}`
+			}`
 
 		return [taskResumptionMessage, userResponseMessage]
 	},
@@ -283,13 +280,13 @@ Otherwise, if you have not completed the task and do not need additional informa
 		`# .clineignore\n\n(The following is provided by a root-level .clineignore file where the user has specified files and directories that should not be accessed. When using list_files, you'll notice a ${LOCK_TEXT_SYMBOL} next to files that are blocked. Attempting to access the file's contents e.g. through read_file will result in an error.)\n\n${content}\n.clineignore`,
 
 	clineRulesGlobalDirectoryInstructions: (globalClineRulesFilePath: string, content: string) =>
-		`# .clinerules/\n\nThe following is provided by a global .clinerules/ directory, located at ${globalClineRulesFilePath.toPosix()}, where the user has specified instructions for all working directories:\n\n${content}`,
+		`# .dappitrules/\n\nThe following is provided by a global .dappitrules/ directory, located at ${globalClineRulesFilePath.toPosix()}, where the user has specified instructions for all working directories:\n\n${content}`,
 
 	clineRulesLocalDirectoryInstructions: (cwd: string, content: string) =>
-		`# .clinerules/\n\nThe following is provided by a root-level .clinerules/ directory where the user has specified instructions for this working directory (${cwd.toPosix()})\n\n${content}`,
+		`# .dappitrules/\n\nThe following is provided by a root-level .dappitrules/ directory where the user has specified instructions for this working directory (${cwd.toPosix()})\n\n${content}`,
 
 	clineRulesLocalFileInstructions: (cwd: string, content: string) =>
-		`# .clinerules\n\nThe following is provided by a root-level .clinerules file where the user has specified instructions for this working directory (${cwd.toPosix()})\n\n${content}`,
+		`# .dappitrules\n\nThe following is provided by a root-level .dappitrules file where the user has specified instructions for this working directory (${cwd.toPosix()})\n\n${content}`,
 
 	windsurfRulesLocalFileInstructions: (cwd: string, content: string) =>
 		`# .windsurfrules\n\nThe following is provided by a root-level .windsurfrules file where the user has specified instructions for this working directory (${cwd.toPosix()})\n\n${content}`,
@@ -321,18 +318,18 @@ Otherwise, if you have not completed the task and do not need additional informa
 const formatImagesIntoBlocks = (images?: string[]): Anthropic.ImageBlockParam[] => {
 	return images
 		? images.map((dataUrl) => {
-				// data:image/png;base64,base64string
-				const [rest, base64] = dataUrl.split(",")
-				const mimeType = rest.split(":")[1].split(";")[0]
-				return {
-					type: "image",
-					source: {
-						type: "base64",
-						media_type: mimeType,
-						data: base64,
-					},
-				} as Anthropic.ImageBlockParam
-			})
+			// data:image/png;base64,base64string
+			const [rest, base64] = dataUrl.split(",")
+			const mimeType = rest.split(":")[1].split(";")[0]
+			return {
+				type: "image",
+				source: {
+					type: "base64",
+					media_type: mimeType,
+					data: base64,
+				},
+			} as Anthropic.ImageBlockParam
+		})
 		: []
 }
 

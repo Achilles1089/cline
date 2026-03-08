@@ -275,8 +275,8 @@ export function getRemoteRulesTotalContentWithMetadata(
 }
 
 /**
- * Handles converting any directory into a file (specifically used for .clinerules and .clinerules/workflows)
- * The old .clinerules file or .clinerules/workflows file will be renamed to a default filename
+ * Handles converting any directory into a file (specifically used for .dappitrules and .dappitrules/workflows)
+ * The old .dappitrules file or .dappitrules/workflows file will be renamed to a default filename
  * Doesn't do anything if the dir already exists or doesn't exist
  * Returns whether there are any uncaught errors
  */
@@ -285,22 +285,22 @@ export async function ensureLocalClineDirExists(clinerulePath: string, defaultRu
 		const exists = await fileExistsAtPath(clinerulePath)
 
 		if (exists && !(await isDirectory(clinerulePath))) {
-			// logic to convert .clinerules file into directory, and rename the rules file to {defaultRuleFilename}
+			// logic to convert .dappitrules file into directory, and rename the rules file to {defaultRuleFilename}
 			const content = await fs.readFile(clinerulePath, "utf8")
 			const tempPath = clinerulePath + ".bak"
 			await fs.rename(clinerulePath, tempPath) // create backup
 			try {
 				await fs.mkdir(clinerulePath, { recursive: true })
 				await fs.writeFile(path.join(clinerulePath, defaultRuleFilename), content, "utf8")
-				await fs.unlink(tempPath).catch(() => {}) // delete backup
+				await fs.unlink(tempPath).catch(() => { }) // delete backup
 
 				return false // conversion successful with no errors
 			} catch (_conversionError) {
 				// attempt to restore backup on conversion failure
 				try {
-					await fs.rm(clinerulePath, { recursive: true, force: true }).catch(() => {})
+					await fs.rm(clinerulePath, { recursive: true, force: true }).catch(() => { })
 					await fs.rename(tempPath, clinerulePath) // restore backup
-				} catch (_restoreError) {}
+				} catch (_restoreError) { }
 				return true // in either case here we consider this an error
 			}
 		}
