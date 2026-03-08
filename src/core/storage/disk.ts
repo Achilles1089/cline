@@ -36,7 +36,7 @@ async function atomicWriteFile(filePath: string, data: string): Promise<void> {
 		await fs.rename(tmpPath, filePath)
 	} catch (error) {
 		// Clean up temp file if it exists
-		fs.unlink(tmpPath).catch(() => {})
+		fs.unlink(tmpPath).catch(() => { })
 		throw error
 	}
 }
@@ -124,7 +124,7 @@ export async function ensureTaskDirectoryExists(taskId: string): Promise<string>
 
 export async function ensureRulesDirectoryExists(): Promise<string> {
 	const userDocumentsPath = await getDocumentsPath()
-	const clineRulesDir = path.join(userDocumentsPath, "Cline", "Rules")
+	const clineRulesDir = path.join(userDocumentsPath, "Dappit AI", "Rules")
 	try {
 		await fs.mkdir(clineRulesDir, { recursive: true })
 	} catch (_error) {
@@ -135,7 +135,7 @@ export async function ensureRulesDirectoryExists(): Promise<string> {
 
 export async function ensureWorkflowsDirectoryExists(): Promise<string> {
 	const userDocumentsPath = await getDocumentsPath()
-	const clineWorkflowsDir = path.join(userDocumentsPath, "Cline", "Workflows")
+	const clineWorkflowsDir = path.join(userDocumentsPath, "Dappit AI", "Workflows")
 	try {
 		await fs.mkdir(clineWorkflowsDir, { recursive: true })
 	} catch (_error) {
@@ -146,7 +146,7 @@ export async function ensureWorkflowsDirectoryExists(): Promise<string> {
 
 export async function ensureMcpServersDirectoryExists(): Promise<string> {
 	const userDocumentsPath = await getDocumentsPath()
-	const mcpServersDir = path.join(userDocumentsPath, "Cline", "MCP")
+	const mcpServersDir = path.join(userDocumentsPath, "Dappit AI", "MCP")
 	try {
 		await fs.mkdir(mcpServersDir, { recursive: true })
 	} catch (_error) {
@@ -157,7 +157,7 @@ export async function ensureMcpServersDirectoryExists(): Promise<string> {
 
 export async function ensureHooksDirectoryExists(): Promise<string> {
 	const userDocumentsPath = await getDocumentsPath()
-	const clineHooksDir = path.join(userDocumentsPath, "Cline", "Hooks")
+	const clineHooksDir = path.join(userDocumentsPath, "Dappit AI", "Hooks")
 	try {
 		await fs.mkdir(clineHooksDir, { recursive: true })
 	} catch (_error) {

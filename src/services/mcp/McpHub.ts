@@ -243,7 +243,7 @@ export class McpHub {
 						let fileNeedsUpdate = false
 						for (const rs of remoteServers) {
 							if (!settings.mcpServers[rs.name]) {
-								;(settings.mcpServers as Record<string, any>)[rs.name] = {
+								; (settings.mcpServers as Record<string, any>)[rs.name] = {
 									url: rs.url,
 									type: "streamableHttp",
 									disabled: false,
@@ -363,7 +363,7 @@ export class McpHub {
 			// Each MCP server requires its own transport connection and has unique capabilities, configurations, and error handling. Having separate clients also allows proper scoping of resources/tools and independent server management like reconnection.
 			const client = new Client(
 				{
-					name: "Cline",
+					name: "Dappit AI",
 					version: this.clientVersion,
 				},
 				{
@@ -435,7 +435,7 @@ export class McpHub {
 					} else {
 						Logger.error(`No stderr stream for ${name}`)
 					}
-					transport.start = async () => {}
+					transport.start = async () => { }
 					break
 				}
 				case "sse": {
@@ -458,13 +458,13 @@ export class McpHub {
 						// Without this, tokens would be stale and fail after expiry
 						fetch: authProvider
 							? async (url: string | URL, init?: RequestInit) => {
-									const tokens = await authProvider.tokens() // Dynamic - gets fresh tokens
-									const headers = new Headers(init?.headers)
-									if (tokens?.access_token) {
-										headers.set("Authorization", `Bearer ${tokens.access_token}`)
-									}
-									return fetch(url.toString(), { ...init, headers })
+								const tokens = await authProvider.tokens() // Dynamic - gets fresh tokens
+								const headers = new Headers(init?.headers)
+								if (tokens?.access_token) {
+									headers.set("Authorization", `Bearer ${tokens.access_token}`)
 								}
+								return fetch(url.toString(), { ...init, headers })
+							}
 							: undefined,
 					}
 					// Use ReconnectingEventSource for auto-reconnection on connection drops
