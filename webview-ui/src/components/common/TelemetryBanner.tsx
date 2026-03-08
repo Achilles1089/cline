@@ -24,7 +24,7 @@ export const TelemetryBanner: React.FC = () => {
 			<h3 className="m-0">Help Improve Cline</h3>
 			<i>(and access experimental features)</i>
 			<p className="m-0">
-				Cline collects error and usage data to help us fix bugs and improve the extension. No code, prompts, or personal
+				Dappit AI collects error and usage data to help us fix bugs and improve the extension. No code, prompts, or personal
 				information is ever sent.
 			</p>
 			<p className="m-0">

@@ -50,5 +50,5 @@ export const STEP_CONFIG = {
 export const USER_TYPE_SELECTIONS: UserTypeSelection[] = [
 	{ title: "Absolutely Free", description: "Get started at no cost", type: NEW_USER_TYPE.FREE },
 	{ title: "Frontier Model", description: "Claude 4.5, GPT-5 Codex, etc", type: NEW_USER_TYPE.POWER },
-	{ title: "Bring my own API key", description: "Use Cline with your provider of choice", type: NEW_USER_TYPE.BYOK },
+	{ title: "Bring my own API key", description: "Use Dappit AI with your provider of choice", type: NEW_USER_TYPE.BYOK },
 ]

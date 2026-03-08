@@ -28,7 +28,7 @@ export const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose, ver
 
 	const navigateToModelPicker = useCallback(
 		(initialModelTab: "recommended" | "free", modelId?: string) => {
-			// Switch to Cline provider first so the model picker tab works
+			// Switch to Dappit provider first so the model picker tab works
 			// Optionally also set the model if provided
 			const updates: Record<string, any> = {
 				planModeApiProvider: "cline",
@@ -134,7 +134,7 @@ export const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose, ver
 
 						{/* GitHub Star CTA */}
 						<p className="text-sm text-center" style={{ color: "var(--vscode-descriptionForeground)" }}>
-							Please support Cline by{" "}
+							Please support Dappit AI by{" "}
 							<a
 								href="https://github.com/cline/cline"
 								rel="noopener noreferrer"
