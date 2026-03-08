@@ -114,7 +114,7 @@
 				{
 					"id": "dappit-agent-ActivityBar",
 					"title": "Dappit AI",
-					"icon": "assets/icons/icon.svg"
+					"icon": "assets/icons/activity-bar.svg"
 				}
 			]
 		},
