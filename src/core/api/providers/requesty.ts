@@ -47,7 +47,7 @@ export class RequestyHandler implements ApiHandler {
 					apiKey: this.options.requestyApiKey,
 					defaultHeaders: {
 						"HTTP-Referer": "https://cline.bot",
-						"X-Title": "Cline",
+						"X-Title": "Dappit AI",
 					},
 				})
 			} catch (error: any) {

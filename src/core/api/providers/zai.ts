@@ -46,7 +46,7 @@ export class ZAiHandler implements ApiHandler {
 					apiKey: this.options.zaiApiKey,
 					defaultHeaders: {
 						"HTTP-Referer": "https://cline.bot",
-						"X-Title": "Cline",
+						"X-Title": "Dappit AI",
 						"X-Cline-Version": extensionVersion,
 					},
 				})
