@@ -1,3 +1,9 @@
+/**
+ * Dappit AI — Feature Flags Service (No-Op Stub)
+ *
+ * Cline feature flags (PostHog-backed) are not used in Dappit.
+ * All feature flags return their default values.
+ */
 export {
 	type FeatureFlagsProviderConfig,
 	FeatureFlagsProviderFactory,
@@ -7,27 +13,26 @@ export { FeatureFlagsService } from "./FeatureFlagsService"
 export type { FeatureFlagsSettings, IFeatureFlagsProvider } from "./providers/IFeatureFlagsProvider"
 export { PostHogFeatureFlagsProvider } from "./providers/PostHogFeatureFlagsProvider"
 
-import { FeatureFlagsProviderFactory } from "./FeatureFlagsProviderFactory"
 import { FeatureFlagsService } from "./FeatureFlagsService"
 
 let _featureFlagsServiceInstance: FeatureFlagsService | null = null
 
-/**
- * Get the singleton feature flags service instance
- * @param distinctId Optional distinct ID for the feature flags provider
- * @returns FeatureFlagsService instance
- */
+// No-op feature flag provider that always returns defaults
+const noOpProvider = {
+	initialize: async () => { },
+	getFeatureFlag: (_flag: string) => undefined,
+	isFeatureEnabled: (_flag: string) => false,
+	getAllFlags: () => ({}),
+	shutdown: async () => { },
+}
+
 export function getFeatureFlagsService(): FeatureFlagsService {
 	if (!_featureFlagsServiceInstance) {
-		const provider = FeatureFlagsProviderFactory.createProvider(FeatureFlagsProviderFactory.getDefaultConfig())
-		_featureFlagsServiceInstance = new FeatureFlagsService(provider)
+		_featureFlagsServiceInstance = new FeatureFlagsService(noOpProvider as any)
 	}
 	return _featureFlagsServiceInstance
 }
 
-/**
- * Reset the feature flags service instance (useful for testing)
- */
 export function resetFeatureFlagsService(): void {
 	_featureFlagsServiceInstance = null
 }
@@ -36,7 +41,6 @@ export const featureFlagsService = new Proxy({} as FeatureFlagsService, {
 	get(_target, prop, _receiver) {
 		const service = getFeatureFlagsService()
 		const value = Reflect.get(service, prop, service)
-		// Bind methods to the service instance to preserve `this` context
 		if (typeof value === "function") {
 			return value.bind(service)
 		}
