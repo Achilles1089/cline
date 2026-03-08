@@ -1,6 +1,5 @@
 import { EmptyRequest } from "@shared/proto/cline/common"
-import ClineLogoSanta from "@/assets/ClineLogoSanta"
-import ClineLogoVariable from "@/assets/ClineLogoVariable"
+import DappitLogo from "@/assets/DappitLogo"
 import { useExtensionState } from "@/context/ExtensionStateContext"
 import { UiServiceClient } from "@/services/grpc-client"
 
@@ -19,9 +18,7 @@ const HomeHeader = ({ shouldShowQuickWins = false }: HomeHeaderProps) => {
 		}
 	}
 
-	// Check if it's December for festive logo
-	const isDecember = new Date().getMonth() === 11 // 11 = December (0-indexed)
-	const LogoComponent = isDecember ? ClineLogoSanta : ClineLogoVariable
+	const LogoComponent = DappitLogo
 
 	return (
 		<div className="flex flex-col items-center mb-5">
