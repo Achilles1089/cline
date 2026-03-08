@@ -318,12 +318,12 @@ export const ChatRowContent = memo(
 				case "mistake_limit_reached":
 					return [
 						<CircleXIcon className="text-error size-2" />,
-						<span className="text-error font-bold">Cline is having trouble...</span>,
+						<span className="text-error font-bold">Dappit AI is having trouble...</span>,
 					]
 				case "command":
 					return [
 						<TerminalIcon className="text-foreground size-2" />,
-						<span className="font-bold text-foreground">Cline wants to execute this command:</span>,
+						<span className="font-bold text-foreground">Dappit AI wants to execute this command:</span>,
 					]
 				case "use_mcp_server":
 					const mcpServerUse = JSON.parse(message.text || "{}") as ClineAskUseMcpServer
