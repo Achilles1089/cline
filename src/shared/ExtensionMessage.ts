@@ -6,6 +6,7 @@ import type { Environment } from "../config"
 import { AutoApprovalSettings } from "./AutoApprovalSettings"
 import { ApiConfiguration } from "./api"
 import { BrowserSettings } from "./BrowserSettings"
+import type { CoordinatorSettings } from "../core/coordinator/types"
 import { ClineFeatureSetting } from "./ClineFeatureSetting"
 import { BannerCardData } from "./cline/banner"
 import { ClineRulesToggles } from "./cline-rules"
@@ -108,6 +109,7 @@ export interface ExtensionState {
 	backgroundEditEnabled?: boolean
 	optOutOfRemoteConfig?: boolean
 	doubleCheckCompletionEnabled?: boolean
+	coordinatorSettings?: CoordinatorSettings
 	banners?: BannerCardData[]
 	welcomeBanners?: BannerCardData[]
 	openAiCodexIsAuthenticated?: boolean
@@ -194,18 +196,18 @@ export type ClineSay =
 
 export interface ClineSayTool {
 	tool:
-		| "editedExistingFile"
-		| "newFileCreated"
-		| "fileDeleted"
-		| "readFile"
-		| "listFilesTopLevel"
-		| "listFilesRecursive"
-		| "listCodeDefinitionNames"
-		| "searchFiles"
-		| "webFetch"
-		| "webSearch"
-		| "summarizeTask"
-		| "useSkill"
+	| "editedExistingFile"
+	| "newFileCreated"
+	| "fileDeleted"
+	| "readFile"
+	| "listFilesTopLevel"
+	| "listFilesRecursive"
+	| "listCodeDefinitionNames"
+	| "searchFiles"
+	| "webFetch"
+	| "webSearch"
+	| "summarizeTask"
+	| "useSkill"
 	path?: string
 	diff?: string
 	content?: string

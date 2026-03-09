@@ -7,6 +7,7 @@ import {
 	HardDriveDownload,
 	Info,
 	type LucideIcon,
+	Network,
 	SlidersHorizontal,
 	SquareMousePointer,
 	SquareTerminal,
@@ -26,6 +27,7 @@ import SectionHeader from "./SectionHeader"
 import AboutSection from "./sections/AboutSection"
 import ApiConfigurationSection from "./sections/ApiConfigurationSection"
 import BrowserSettingsSection from "./sections/BrowserSettingsSection"
+import CoordinatorSettingsSection from "./sections/CoordinatorSettingsSection"
 import DebugSection from "./sections/DebugSection"
 import FeatureSettingsSection from "./sections/FeatureSettingsSection"
 import GeneralSettingsSection from "./sections/GeneralSettingsSection"
@@ -35,7 +37,7 @@ import TerminalSettingsSection from "./sections/TerminalSettingsSection"
 const IS_DEV = process.env.IS_DEV
 
 // Tab definitions
-type SettingsTabID = "api-config" | "features" | "browser" | "terminal" | "general" | "about" | "debug" | "remote-config"
+type SettingsTabID = "api-config" | "features" | "coordinator" | "browser" | "terminal" | "general" | "about" | "debug" | "remote-config"
 interface SettingsTab {
 	id: SettingsTabID
 	name: string
@@ -59,6 +61,13 @@ export const SETTINGS_TABS: SettingsTab[] = [
 		tooltipText: "Feature Settings",
 		headerText: "Feature Settings",
 		icon: CheckCheck,
+	},
+	{
+		id: "coordinator",
+		name: "Coordinator",
+		tooltipText: "Multi-Model Coordinator",
+		headerText: "Multi-Model Coordinator",
+		icon: Network,
 	},
 	{
 		id: "browser",
@@ -137,6 +146,7 @@ const SettingsView = ({ onDone, targetSection }: SettingsViewProps) => {
 			"api-config": ApiConfigurationSection,
 			general: GeneralSettingsSection,
 			features: FeatureSettingsSection,
+			coordinator: CoordinatorSettingsSection,
 			browser: BrowserSettingsSection,
 			terminal: TerminalSettingsSection,
 			"remote-config": RemoteConfigSection,

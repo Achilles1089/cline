@@ -850,6 +850,7 @@ export class Controller {
 		const taskHistory = this.stateManager.getGlobalStateKey("taskHistory")
 		const autoApprovalSettings = this.stateManager.getGlobalSettingsKey("autoApprovalSettings")
 		const browserSettings = this.stateManager.getGlobalSettingsKey("browserSettings")
+		const coordinatorSettings = this.stateManager.getGlobalSettingsKey("coordinatorSettings")
 		const focusChainSettings = this.stateManager.getGlobalSettingsKey("focusChainSettings")
 		const preferredLanguage = this.stateManager.getGlobalSettingsKey("preferredLanguage")
 		const mode = this.stateManager.getGlobalSettingsKey("mode")
@@ -927,6 +928,7 @@ export class Controller {
 			checkpointManagerErrorMessage,
 			autoApprovalSettings,
 			browserSettings,
+			coordinatorSettings,
 			focusChainSettings,
 			preferredLanguage,
 			mode,

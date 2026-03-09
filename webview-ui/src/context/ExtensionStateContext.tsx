@@ -1,6 +1,7 @@
 import { DEFAULT_AUTO_APPROVAL_SETTINGS } from "@shared/AutoApprovalSettings"
 import { findLastIndex } from "@shared/array"
 import { DEFAULT_BROWSER_SETTINGS } from "@shared/BrowserSettings"
+import { DEFAULT_COORDINATOR_SETTINGS } from "../../../src/core/coordinator/types"
 import { DEFAULT_PLATFORM, type ExtensionState } from "@shared/ExtensionMessage"
 import { DEFAULT_FOCUS_CHAIN_SETTINGS } from "@shared/FocusChainSettings"
 import { DEFAULT_MCP_DISPLAY_MODE } from "@shared/McpDisplayMode"
@@ -233,6 +234,7 @@ export const ExtensionStateContextProvider: React.FC<{
 		shouldShowAnnouncement: false,
 		autoApprovalSettings: DEFAULT_AUTO_APPROVAL_SETTINGS,
 		browserSettings: DEFAULT_BROWSER_SETTINGS,
+		coordinatorSettings: DEFAULT_COORDINATOR_SETTINGS,
 		focusChainSettings: DEFAULT_FOCUS_CHAIN_SETTINGS,
 		preferredLanguage: "English",
 		mode: "act",
@@ -450,7 +452,7 @@ export const ExtensionStateContextProvider: React.FC<{
 				onError: (error) => {
 					console.error("Error in chat button subscription:", error)
 				},
-				onComplete: () => {},
+				onComplete: () => { },
 			},
 		)
 
@@ -623,7 +625,7 @@ export const ExtensionStateContextProvider: React.FC<{
 			onError: (error) => {
 				console.error("Error in relinquishControl subscription:", error)
 			},
-			onComplete: () => {},
+			onComplete: () => { },
 		})
 
 		// Clean up subscriptions when component unmounts

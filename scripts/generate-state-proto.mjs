@@ -82,6 +82,7 @@ function inferProtoType(typeText, fieldName) {
 		// Other types - order matters for substring matching
 		["AutoApprovalSettings", "AutoApprovalSettings"],
 		["BrowserSettings", "BrowserSettings"],
+		["CoordinatorSettings", "CoordinatorSettings"],
 		["FocusChainSettings", "FocusChainSettings"],
 		["OpenaiReasoningEffort", "OpenaiReasoningEffort"],
 		["PlanActMode", "PlanActMode"],

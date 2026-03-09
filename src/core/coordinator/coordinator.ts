@@ -134,7 +134,7 @@ export class CoordinatedApiHandler implements ApiHandler {
 		}
 
 		// Append role overlay to system prompt
-		const overlay = getRoleOverlay(role, roleConfig.customSystemPrompt)
+		const overlay = getRoleOverlay(role, roleConfig.customPromptOverlay)
 		const enhancedPrompt = overlay ? systemPrompt + overlay : systemPrompt
 
 		this._lastActiveRole = role

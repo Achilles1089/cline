@@ -82,10 +82,10 @@ const CONTENT_PATTERNS: Array<{ pattern: RegExp; role: TaskRole; confidence: "hi
 		confidence: "medium",
 	},
 
-	// Designer patterns — specific CSS/UI terms, not generic "design"
+	// Designer patterns — CSS/UI terms and natural language design intent
 	{
 		pattern:
-			/\b(css\s+layout|fix\s+the\s+css|tailwind|responsive\s+design|ui\s+component|ux\s+design|color\s+palette|dark\s+mode|font\s+size|flexbox|grid\s+layout|styled-component)\b/i,
+			/\b(css\s+layout|fix\s+the\s+css|tailwind|responsive\s+design|ui\s+component|ux\s+design|color\s+palette|dark\s+mode|font\s+size|flexbox|grid\s+layout|styled-component|design\s+(?:me\s+)?(?:a|an|the)\b|build\s+(?:me\s+)?(?:a|an)\s+\w*\s*(?:app|page|site|website|dashboard|ui|interface)|premium\s+\w*\s*(?:app|page|site|ui|dashboard)|beautiful\s+\w*\s*(?:app|page|site|ui))(?:\b)/i,
 		role: TaskRole.Designer,
 		confidence: "medium",
 	},

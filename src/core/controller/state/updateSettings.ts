@@ -1,4 +1,5 @@
 import { buildApiHandler } from "@core/api"
+import type { TaskRole } from "@core/coordinator/types"
 import { Empty } from "@shared/proto/cline/common"
 import { PlanActMode, McpDisplayMode as ProtoMcpDisplayMode, UpdateSettingsRequest } from "@shared/proto/cline/state"
 import { convertProtoToApiProvider } from "@shared/proto-conversions/models/api-configuration-conversion"
@@ -342,6 +343,39 @@ export async function updateSettings(controller: Controller, request: UpdateSett
 
 		if (request.doubleCheckCompletionEnabled !== undefined) {
 			controller.stateManager.setGlobalState("doubleCheckCompletionEnabled", request.doubleCheckCompletionEnabled)
+		}
+
+		// Update coordinator settings
+		if (request.coordinatorSettings !== undefined) {
+			const currentSettings = controller.stateManager.getGlobalSettingsKey("coordinatorSettings")
+
+			// Merge role assignments: proto map<string, RoleConfig> → CoordinatorSettings.roleAssignments
+			const mergedRoleAssignments = { ...currentSettings.roleAssignments }
+			if (request.coordinatorSettings.roleAssignments) {
+				for (const [role, config] of Object.entries(request.coordinatorSettings.roleAssignments)) {
+					const currentRole = mergedRoleAssignments[role as TaskRole]
+					mergedRoleAssignments[role as TaskRole] = {
+						// Proto3 drops false booleans, so undefined means "explicitly set to false"
+						// If enabled is undefined AND no current value exists, default to false
+						enabled: config.enabled !== undefined ? config.enabled : (currentRole?.enabled ?? false),
+						// Empty string = explicitly clear; undefined = not set (keep current)
+						apiProvider: config.apiProvider !== undefined ? (config.apiProvider || undefined) : currentRole?.apiProvider,
+						modelId: config.modelId !== undefined ? (config.modelId || undefined) : currentRole?.modelId,
+						customPromptOverlay: config.customPromptOverlay !== undefined ? (config.customPromptOverlay || undefined) : currentRole?.customPromptOverlay,
+					}
+				}
+			}
+
+			const updatedSettings = {
+				...currentSettings,
+				enabled: request.coordinatorSettings.enabled ?? currentSettings.enabled,
+				showStatusBarIndicator:
+					request.coordinatorSettings.showStatusBarIndicator ?? currentSettings.showStatusBarIndicator,
+				roleAssignments: mergedRoleAssignments,
+			}
+			controller.stateManager.setGlobalState("coordinatorSettings", updatedSettings)
+
+			Logger.info("Coordinator settings updated:", JSON.stringify(updatedSettings))
 		}
 
 		// Post updated state to webview

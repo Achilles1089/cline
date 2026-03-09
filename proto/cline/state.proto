@@ -104,7 +104,7 @@ message Secrets {
   optional string oca_refresh_token = 42;
   optional string mcp_o_auth_secrets = 43;
   optional string cline_api_key = 44;
-  optional string openai_codex_oauth_credentials = 48;
+  optional string openai_codex_oauth_credentials = 50;
 }
 
 // NOTE: Add new fields under API_HANDLER_SETTINGS_FIELDS or USER_SETTINGS_FIELDS
@@ -279,11 +279,12 @@ message Settings {
   optional bool worktrees_enabled = 172;
   optional bool auto_approve_all_toggled = 174;
   optional bool double_check_completion_enabled = 176;
-  map<string, string> open_ai_headers = 177;
   optional string plan_mode_cline_model_id = 178;
   optional OpenRouterModelInfo plan_mode_cline_model_info = 179;
   optional string act_mode_cline_model_id = 180;
   optional OpenRouterModelInfo act_mode_cline_model_info = 181;
+  optional CoordinatorSettings coordinator_settings = 183;
+  map<string, string> open_ai_headers = 184;
 }
 
 message State {
@@ -370,6 +371,28 @@ message BrowserSettingsUpdate {
   optional string custom_args = 6;
 }
 
+// Role configuration for a specialist model
+message RoleConfig {
+  optional string api_provider = 1;
+  optional string model_id = 2;
+  optional string custom_prompt_overlay = 3;
+  optional bool enabled = 4;
+}
+
+// Coordinator settings (stored in global state)
+message CoordinatorSettings {
+  bool enabled = 1;
+  bool show_status_bar_indicator = 2;
+  map<string, RoleConfig> role_assignments = 3;
+}
+
+// Coordinator settings for UpdateSettingsRequest
+message CoordinatorSettingsUpdate {
+  optional bool enabled = 1;
+  optional bool show_status_bar_indicator = 2;
+  map<string, RoleConfig> role_assignments = 3;
+}
+
 message UpdateSettingsRequestCli {
   Metadata metadata = 1;
   optional Settings settings = 2;
@@ -425,6 +448,7 @@ message UpdateSettingsRequest {
   optional bool opt_out_of_remote_config = 39;
   optional bool worktrees_enabled = 40;
   optional bool double_check_completion_enabled = 41;
+  optional CoordinatorSettingsUpdate coordinator_settings = 42;
 }
 
 message UpdateTerminalConnectionTimeoutRequest {

@@ -471,16 +471,7 @@ export class Task {
 		const primaryHandler = buildApiHandler(effectiveApiConfiguration, mode)
 
 		// Wrap with coordinator if enabled in settings
-		// Note: coordinatorSettings is not yet in GlobalSettingsKey union —
-		// we use a safe accessor pattern until the settings UI is wired up
-		let coordinatorSettings: CoordinatorSettings | undefined
-		try {
-			coordinatorSettings = (this.stateManager as any).getGlobalSettingsKey?.("coordinatorSettings") as
-				| CoordinatorSettings
-				| undefined
-		} catch {
-			// Key not registered yet — coordinator stays disabled (default)
-		}
+		const coordinatorSettings = this.stateManager.getGlobalSettingsKey("coordinatorSettings")
 		const wrappedHandler = createCoordinatedHandler(primaryHandler, coordinatorSettings, effectiveApiConfiguration, mode)
 		this.api = wrappedHandler
 		if (wrappedHandler instanceof CoordinatedApiHandler) {
@@ -578,7 +569,7 @@ export class Task {
 			this.executeCommandTool.bind(this),
 			this.cancelBackgroundCommand.bind(this),
 			() => this.checkpointManager?.doesLatestTaskCompletionHaveNewChanges() ?? Promise.resolve(false),
-			this.FocusChainManager?.updateFCListFromToolResponse.bind(this.FocusChainManager) || (async () => {}),
+			this.FocusChainManager?.updateFCListFromToolResponse.bind(this.FocusChainManager) || (async () => { }),
 			this.switchToActModeCallback.bind(this),
 			this.cancelTask,
 			// Atomic hook state helpers for ToolExecutor
@@ -872,8 +863,7 @@ export class Task {
 	async sayAndCreateMissingParamError(toolName: ClineDefaultTool, paramName: string, relPath?: string) {
 		await this.say(
 			"error",
-			`Cline tried to use ${toolName}${
-				relPath ? ` for '${relPath.toPosix()}'` : ""
+			`Cline tried to use ${toolName}${relPath ? ` for '${relPath.toPosix()}'` : ""
 			} without value for required parameter '${paramName}'. Retrying...`,
 		)
 		return formatResponse.toolError(formatResponse.missingToolParameterError(paramName))
@@ -1597,6 +1587,9 @@ export class Task {
 			if (this.FocusChainManager) {
 				this.FocusChainManager.dispose()
 			}
+			if (this.coordinatedApi) {
+				this.coordinatedApi.dispose()
+			}
 		} finally {
 			// Release task folder lock
 			if (this.taskLockAcquired) {
@@ -2306,7 +2299,7 @@ export class Task {
 		if (providerId && model.id) {
 			try {
 				await this.modelContextTracker.recordModelUsage(providerId, model.id, mode)
-			} catch {}
+			} catch { }
 		}
 
 		const modelInfo: ClineMessageModelInfo = {
@@ -2669,10 +2662,9 @@ export class Task {
 							type: "text",
 							text:
 								assistantMessage +
-								`\n\n[${
-									cancelReason === "streaming_failed"
-										? "Response interrupted by API Error"
-										: "Response interrupted by user"
+								`\n\n[${cancelReason === "streaming_failed"
+									? "Response interrupted by API Error"
+									: "Response interrupted by user"
 								}]`,
 						},
 					],
@@ -3503,7 +3495,7 @@ export class Task {
 			await pWaitFor(() => busyTerminals.every((t) => !this.terminalManager.isProcessHot(t.id)), {
 				interval: 100,
 				timeout: 15_000,
-			}).catch(() => {})
+			}).catch(() => { })
 		}
 
 		this.taskState.didEditFile = false // reset, this lets us know when to wait for saved files to update terminals

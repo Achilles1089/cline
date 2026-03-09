@@ -1,4 +1,5 @@
 import { AutoApprovalSettings, DEFAULT_AUTO_APPROVAL_SETTINGS } from "@shared/AutoApprovalSettings"
+import { CoordinatorSettings, DEFAULT_COORDINATOR_SETTINGS } from "../../core/coordinator/types"
 import {
 	ApiProvider,
 	DEFAULT_API_PROVIDER,
@@ -272,6 +273,10 @@ const USER_SETTINGS_FIELDS = {
 	backgroundEditEnabled: { default: false as boolean },
 	optOutOfRemoteConfig: { default: false as boolean },
 	doubleCheckCompletionEnabled: { default: false as boolean },
+	coordinatorSettings: {
+		default: DEFAULT_COORDINATOR_SETTINGS as CoordinatorSettings,
+		transform: (v: any) => ({ ...DEFAULT_COORDINATOR_SETTINGS, ...v }),
+	},
 
 	// OpenTelemetry configuration
 	openTelemetryEnabled: { default: true as boolean },

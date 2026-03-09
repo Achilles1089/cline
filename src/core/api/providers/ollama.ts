@@ -108,6 +108,15 @@ export class OllamaHandler implements ApiHandler {
 						)
 					}
 
+					// Handle thinking/reasoning tokens from models that support think mode
+					// (e.g., Qwen3.5 with think:true — the proxy injects this automatically)
+					if (typeof (delta as any).thinking === "string" && (delta as any).thinking) {
+						yield {
+							type: "reasoning",
+							reasoning: (delta as any).thinking,
+						}
+					}
+
 					if (typeof delta.content === "string") {
 						yield {
 							type: "text",

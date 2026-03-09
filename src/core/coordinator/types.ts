@@ -48,7 +48,7 @@ export interface RoleConfig {
 	/** Specific model ID (e.g., "claude-sonnet-4-20250514", "gemini-2.5-pro") */
 	modelId?: string
 	/** Optional custom system prompt overlay for this role */
-	customSystemPrompt?: string
+	customPromptOverlay?: string
 }
 
 /**
