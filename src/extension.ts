@@ -545,24 +545,24 @@ ${ctx.cellJson || "{}"}
 	Logger.log(`[Dappit AI] extension activated in ${performance.now() - activationStartTime} ms`)
 
 	// Register placeholder panels for Compose Studio, Web3 Workbench, Marketplace
-	const placeholderPanels: Array<{ viewId: string; title: string; description: string; emoji: string }> = [
+	const placeholderPanels: Array<{ viewId: string; title: string; description: string; icon: string }> = [
 		{
 			viewId: "dappit.composeView",
 			title: "Compose Studio",
 			description: "Documents, pitch decks, images, and videos — all your content creation in one place.",
-			emoji: "📄",
+			icon: `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>`,
 		},
 		{
 			viewId: "dappit.web3View",
 			title: "Web3 Workbench",
 			description: "Smart contracts, DeFi modules, token deployment, and security audits — deploy to any chain.",
-			emoji: "⛓️",
+			icon: `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="8" height="10" rx="2"/><rect x="14" y="7" width="8" height="10" rx="2"/><path d="M10 10h4M10 14h4" stroke-linecap="round"/></svg>`,
 		},
 		{
 			viewId: "dappit.marketplaceView",
 			title: "Marketplace",
 			description: "Browse curated starters, publish your own templates, and discover community-built tools.",
-			emoji: "🏪",
+			icon: `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
 		},
 	]
 
@@ -591,16 +591,16 @@ ${ctx.cellJson || "{}"}
 			background: var(--vscode-sideBar-background);
 			text-align: center;
 		}
-		.emoji { font-size: 48px; margin-bottom: 16px; }
-		h2 { margin: 0 0 8px 0; font-size: 18px; font-weight: 600; }
-		p { margin: 0 0 24px 0; font-size: 13px; opacity: 0.7; line-height: 1.5; }
+		.icon { opacity: 0.4; margin-bottom: 16px; }
+		h2 { margin: 0 0 8px 0; font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
+		p { margin: 0 0 24px 0; font-size: 12px; opacity: 0.5; line-height: 1.6; max-width: 240px; }
 		.badge {
 			display: inline-block;
 			padding: 4px 12px;
 			border-radius: 12px;
-			font-size: 11px;
+			font-size: 10px;
 			font-weight: 600;
-			letter-spacing: 0.5px;
+			letter-spacing: 0.8px;
 			text-transform: uppercase;
 			background: var(--vscode-badge-background);
 			color: var(--vscode-badge-foreground);
@@ -608,7 +608,7 @@ ${ctx.cellJson || "{}"}
 	</style>
 </head>
 <body>
-	<div class="emoji">${panel.emoji}</div>
+	<div class="icon">${panel.icon}</div>
 	<h2>${panel.title}</h2>
 	<p>${panel.description}</p>
 	<span class="badge">Coming Soon</span>
