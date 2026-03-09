@@ -1962,7 +1962,7 @@ export class Task {
 				lastUserMsg?.role === "user" ? (typeof lastUserMsg.content === "string" ? lastUserMsg.content : "") : ""
 			this.coordinatedApi.setClassificationContext({
 				latestUserMessage: userText,
-				// activeFiles and pendingToolName will be populated in future iterations
+				activeFiles: visibleTabPaths.length > 0 ? visibleTabPaths : openTabPaths,
 			})
 		}
 

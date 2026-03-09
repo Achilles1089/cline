@@ -25,7 +25,8 @@ const EXTENSION_ROLE_MAP: Record<string, TaskRole> = {
 	// Web3 Developer
 	".sol": TaskRole.Web3Developer,
 	".vy": TaskRole.Web3Developer,
-	".rs": TaskRole.Web3Developer, // Anchor/Solana programs
+	// Note: .rs is intentionally excluded — Rust is used for many non-Web3 things.
+	// Web3 Rust files are caught by content patterns ("anchor", "solana") instead.
 	".move": TaskRole.Web3Developer,
 
 	// Document Writer
@@ -47,63 +48,75 @@ const EXTENSION_ROLE_MAP: Record<string, TaskRole> = {
 const TOOL_ROLE_MAP: Record<string, TaskRole> = {
 	// Error checking tools
 	diagnostics: TaskRole.ErrorChecker,
-	lint: TaskRole.ErrorChecker,
-	test: TaskRole.ErrorChecker,
+	run_lint_check: TaskRole.ErrorChecker,
+	run_test_suite: TaskRole.ErrorChecker,
 
 	// Browser / visual tools → Designer
-	browser: TaskRole.Designer,
-	screenshot: TaskRole.Designer,
+	browser_action: TaskRole.Designer,
+	take_screenshot: TaskRole.Designer,
 
 	// File reading is neutral — doesn't trigger a role
 }
 
-/** Content pattern keywords → role mapping (checked against user message) */
+/**
+ * Content pattern keywords → role mapping (checked against user message).
+ *
+ * IMPORTANT: Patterns use multi-word phrases and specific terms to avoid
+ * false positives on common English words. Order matters — first match wins.
+ * Web3 patterns are checked first because they're the most specific.
+ */
 const CONTENT_PATTERNS: Array<{ pattern: RegExp; role: TaskRole; confidence: "high" | "medium" }> = [
-	// Designer patterns
+	// Web3 patterns — most specific, checked first
 	{
-		pattern: /\b(design|layout|css|style|color|font|responsive|ui|ux|tailwind|animation)\b/i,
-		role: TaskRole.Designer,
-		confidence: "medium",
-	},
-
-	// Web3 patterns
-	{
-		pattern: /\b(solidity|smart contract|erc-?20|erc-?721|hardhat|foundry|anchor|solana|web3|ethers|wagmi|pump\.fun|ipfs)\b/i,
+		pattern:
+			/\b(solidity|smart\s*contract|erc-?20|erc-?721|erc-?1155|hardhat|foundry|anchor\s+program|solana\s+program|web3\.?js|ethers\.?js|wagmi|pump\.fun|ipfs|blockchain|dapp)\b/i,
 		role: TaskRole.Web3Developer,
 		confidence: "high",
 	},
 
-	// Auditor patterns
+	// Auditor patterns — require compound terms to avoid matching "review this code"
 	{
-		pattern: /\b(audit|review|security|vulnerability|best practice|code review|penetration)\b/i,
+		pattern:
+			/\b(security\s+audit|security\s+review|code\s+review|vulnerability\s+scan|penetration\s+test|security\s+vulnerabilit)\b/i,
 		role: TaskRole.Auditor,
 		confidence: "medium",
 	},
 
-	// Document Writer patterns
+	// Designer patterns — specific CSS/UI terms, not generic "design"
 	{
-		pattern: /\b(documentation|readme|changelog|write docs|api docs|jsdoc|tsdoc)\b/i,
+		pattern:
+			/\b(css\s+layout|fix\s+the\s+css|tailwind|responsive\s+design|ui\s+component|ux\s+design|color\s+palette|dark\s+mode|font\s+size|flexbox|grid\s+layout|styled-component)\b/i,
+		role: TaskRole.Designer,
+		confidence: "medium",
+	},
+
+	// Document Writer patterns — require documentation-specific terms
+	{
+		pattern:
+			/\b(write\s+docs|api\s+docs|update\s+readme|documentation|changelog|jsdoc|tsdoc|write\s+the\s+readme|docstring)\b/i,
 		role: TaskRole.DocumentWriter,
 		confidence: "medium",
 	},
 
-	// Video Creator patterns
+	// Video Creator patterns — Remotion-specific
 	{
-		pattern: /\b(video|remotion|animation|motion graphic|screen recording|tutorial video)\b/i,
+		pattern: /\b(remotion|video\s+composition|motion\s+graphic|screen\s+recording|tutorial\s+video|create\s+a\s+video)\b/i,
 		role: TaskRole.VideoCreator,
 		confidence: "medium",
 	},
 
-	// Planner patterns
+	// Planner patterns — require planning-specific compound terms
 	{
-		pattern: /\b(plan|architect|design system|break down|decompose|roadmap|strategy)\b/i,
+		pattern:
+			/\b(plan\s+the\s+architecture|design\s+system|break\s+down\s+the|decompose|implementation\s+plan|technical\s+roadmap|architect\s+the)\b/i,
 		role: TaskRole.Planner,
 		confidence: "medium",
 	},
 
-	// Images patterns
+	// Images patterns — require image-specific compound terms
 	{
-		pattern: /\b(generate image|create image|logo|icon|illustration|dall-e|flux|sdxl|stable diffusion)\b/i,
+		pattern:
+			/\b(generate\s+(?:an?\s+)?image|create\s+(?:an?\s+)?image|dall-e|flux|sdxl|stable\s+diffusion|generate\s+(?:a\s+)?logo|create\s+(?:an?\s+)?icon|image\s+generation)\b/i,
 		role: TaskRole.Images,
 		confidence: "medium",
 	},

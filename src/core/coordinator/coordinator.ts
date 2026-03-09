@@ -11,7 +11,7 @@
 import type { ApiHandler, ApiHandlerModel } from "@core/api"
 import { buildApiHandler } from "@core/api"
 import type { ApiStream, ApiStreamUsageChunk } from "@core/api/transform/stream"
-import type { ApiConfiguration } from "@/shared/api"
+import type { ApiConfiguration, ApiProvider } from "@/shared/api"
 import type { ClineStorageMessage } from "@/shared/messages/content"
 import { Logger } from "@/shared/services/Logger"
 import type { Mode } from "@/shared/storage/types"
@@ -82,6 +82,18 @@ export class CoordinatedApiHandler implements ApiHandler {
 	}
 
 	/**
+	 * Update the mode (Plan/Act) and invalidate cached specialist handlers.
+	 * Called when the user switches between Plan and Act mode.
+	 */
+	updateMode(mode: Mode): void {
+		if (this.mode !== mode) {
+			this.mode = mode
+			// Specialist handlers are mode-specific — clear the cache
+			this.specialistHandlers.clear()
+		}
+	}
+
+	/**
 	 * Core routing method — intercepts createMessage and routes to specialist.
 	 */
 	async *createMessage(
@@ -147,9 +159,16 @@ export class CoordinatedApiHandler implements ApiHandler {
 	}
 
 	/**
-	 * Proxy to the primary handler's stream usage.
+	 * Proxy to the active handler's stream usage.
+	 * Routes to the specialist handler if one was used for the last request.
 	 */
 	async getApiStreamUsage(): Promise<ApiStreamUsageChunk | undefined> {
+		if (this._lastActiveRole !== TaskRole.Primary) {
+			const specialist = this.specialistHandlers.get(this._lastActiveRole)
+			if (specialist?.getApiStreamUsage) {
+				return specialist.getApiStreamUsage()
+			}
+		}
 		return this.primaryHandler.getApiStreamUsage?.()
 	}
 
@@ -181,19 +200,20 @@ export class CoordinatedApiHandler implements ApiHandler {
 
 			// Override the provider for the current mode
 			if (config.apiProvider) {
+				const provider = config.apiProvider as ApiProvider
 				if (this.mode === "plan") {
-					;(specialistConfig as any).planModeApiProvider = config.apiProvider
+					specialistConfig.planModeApiProvider = provider
 				} else {
-					;(specialistConfig as any).actModeApiProvider = config.apiProvider
+					specialistConfig.actModeApiProvider = provider
 				}
 			}
 
 			// Override the model ID if specified
 			if (config.modelId) {
 				if (this.mode === "plan") {
-					;(specialistConfig as any).planModeModelId = config.modelId
+					specialistConfig.planModeApiModelId = config.modelId
 				} else {
-					;(specialistConfig as any).actModeModelId = config.modelId
+					specialistConfig.actModeApiModelId = config.modelId
 				}
 			}
 
