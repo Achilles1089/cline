@@ -1,0 +1,8 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Storefront — Marketplace -->
+  <path d="M4 7L2 12V14H22V12L20 7H4Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <path d="M2 14V21H22V14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <path d="M9 14V21H15V14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <path d="M4 7V4H20V7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <path d="M6.5 12V14M12 12V14M17.5 12V14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+</svg>

@@ -115,6 +115,21 @@
 					"id": "dappit-agent-ActivityBar",
 					"title": "Dappit AI",
 					"icon": "assets/icons/activity-bar.svg"
+				},
+				{
+					"id": "dappit-compose-ActivityBar",
+					"title": "Compose Studio",
+					"icon": "assets/icons/compose.svg"
+				},
+				{
+					"id": "dappit-web3-ActivityBar",
+					"title": "Web3 Workbench",
+					"icon": "assets/icons/web3.svg"
+				},
+				{
+					"id": "dappit-marketplace-ActivityBar",
+					"title": "Marketplace",
+					"icon": "assets/icons/marketplace.svg"
 				}
 			]
 		},
@@ -125,6 +140,27 @@
 					"id": "dappit-agent.SidebarProvider",
 					"name": "",
 					"icon": "assets/icons/icon.svg"
+				}
+			],
+			"dappit-compose-ActivityBar": [
+				{
+					"type": "webview",
+					"id": "dappit.composeView",
+					"name": ""
+				}
+			],
+			"dappit-web3-ActivityBar": [
+				{
+					"type": "webview",
+					"id": "dappit.web3View",
+					"name": ""
+				}
+			],
+			"dappit-marketplace-ActivityBar": [
+				{
+					"type": "webview",
+					"id": "dappit.marketplaceView",
+					"name": ""
 				}
 			]
 		},

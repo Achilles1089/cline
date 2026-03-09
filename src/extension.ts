@@ -544,6 +544,81 @@ ${ctx.cellJson || "{}"}
 
 	Logger.log(`[Dappit AI] extension activated in ${performance.now() - activationStartTime} ms`)
 
+	// Register placeholder panels for Compose Studio, Web3 Workbench, Marketplace
+	const placeholderPanels: Array<{ viewId: string; title: string; description: string; emoji: string }> = [
+		{
+			viewId: "dappit.composeView",
+			title: "Compose Studio",
+			description: "Documents, pitch decks, images, and videos — all your content creation in one place.",
+			emoji: "📄",
+		},
+		{
+			viewId: "dappit.web3View",
+			title: "Web3 Workbench",
+			description: "Smart contracts, DeFi modules, token deployment, and security audits — deploy to any chain.",
+			emoji: "⛓️",
+		},
+		{
+			viewId: "dappit.marketplaceView",
+			title: "Marketplace",
+			description: "Browse curated starters, publish your own templates, and discover community-built tools.",
+			emoji: "🏪",
+		},
+	]
+
+	for (const panel of placeholderPanels) {
+		context.subscriptions.push(
+			vscode.window.registerWebviewViewProvider(panel.viewId, {
+				resolveWebviewView(webviewView: vscode.WebviewView) {
+					webviewView.webview.options = { enableScripts: false }
+					webviewView.webview.html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			margin: 0;
+			padding: 20px;
+			box-sizing: border-box;
+			font-family: var(--vscode-font-family);
+			color: var(--vscode-foreground);
+			background: var(--vscode-sideBar-background);
+			text-align: center;
+		}
+		.emoji { font-size: 48px; margin-bottom: 16px; }
+		h2 { margin: 0 0 8px 0; font-size: 18px; font-weight: 600; }
+		p { margin: 0 0 24px 0; font-size: 13px; opacity: 0.7; line-height: 1.5; }
+		.badge {
+			display: inline-block;
+			padding: 4px 12px;
+			border-radius: 12px;
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: 0.5px;
+			text-transform: uppercase;
+			background: var(--vscode-badge-background);
+			color: var(--vscode-badge-foreground);
+		}
+	</style>
+</head>
+<body>
+	<div class="emoji">${panel.emoji}</div>
+	<h2>${panel.title}</h2>
+	<p>${panel.description}</p>
+	<span class="badge">Coming Soon</span>
+</body>
+</html>`
+				},
+			}),
+		)
+	}
+
 	// Auto-open Dappit AI panel on startup
 	setTimeout(() => {
 		vscode.commands.executeCommand(`${ExtensionRegistryInfo.views.Sidebar}.focus`)
